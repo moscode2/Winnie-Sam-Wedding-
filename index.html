@@ -624,25 +624,48 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* =========================================================
    CEREMONY
    ========================================================= */
-.ceremony{ background:var(--ivory); }
-.ceremony-wrap{
-  display:grid; gap:2.2rem; align-items:center;
-  grid-template-columns:1fr;
-  max-width:960px; margin-inline:auto; margin-top:2.6rem;
+..ceremony {
+  background: var(--ivory);
 }
-@media(min-width:780px){ .ceremony-wrap{ grid-template-columns:1fr 1fr; gap:3.4rem; } }
-.ceremony-photo{
-  aspect-ratio:5/4; border:1px solid var(--gold-soft); padding:8px; background:var(--white);
-}
-.ceremony-photo .ph{
-  width:100%; height:100%; background:var(--ivory-deep);
-  display:flex; align-items:center; justify-content:center;
-  color:var(--ink-soft); font-size:0.78rem; letter-spacing:0.06em; text-align:center;
-}
-.ceremony-text h2{ font-size:clamp(1.8rem,4vw,2.4rem); margin-bottom:0.9rem; }
-.ceremony-text .place{ font-family:var(--font-display); font-style:italic; font-size:1.2rem; color:var(--sage-deep); margin-bottom:1rem; }
-.ceremony-text p{ color:var(--ink-soft); margin-bottom:1.6rem; max-width:38ch; }
 
+.ceremony-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 960px;
+  margin-inline: auto;
+  margin-top: 2.6rem;
+}
+
+.ceremony-text {
+  max-width: 650px;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.ceremony-text h2 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  margin-bottom: 0.9rem;
+}
+
+.ceremony-text .place {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--sage-deep);
+  margin-bottom: 1rem;
+}
+
+.ceremony-text p {
+  color: var(--ink-soft);
+  margin-bottom: 1.6rem;
+  max-width: 38ch;
+  margin-inline: auto;
+}
+
+.ceremony-text .btn {
+  display: inline-block;
+}
 /* =========================================================
    GALLERY
    ========================================================= */
