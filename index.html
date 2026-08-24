@@ -418,7 +418,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    OUTER HARD-COVER BODY
    ========================================================= */
 
-.envelope-body {
+   .envelope-body {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -428,18 +428,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   background:
     linear-gradient(
       145deg,
-      #e8edc8 0%,
-      #dce5b2 45%,
-      #c9d493 100%
+      #d8dfad 0%,
+      #c4d092 45%,
+      #b7c681 100%
     );
 
   box-shadow:
-    inset 0 0 0 2px rgba(73, 82, 38, .18),
-    inset 0 0 45px rgba(52, 61, 29, .16);
+    inset 0 0 0 2px rgba(73, 82, 38, .15),
+    inset 0 0 45px rgba(52, 61, 29, .12);
 
   z-index: 1;
 }
-
 
 /* =========================================================
    FLORAL INNER LINING
@@ -490,14 +489,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    HARD-COVER ENVELOPE FLAP
    ========================================================= */
 
-.envelope-flap {
+   .envelope-flap {
   position: absolute;
-
   top: 0;
   left: 0;
 
   width: 100%;
   height: 43%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #d8dfad 0%,
+      #c4d092 45%,
+      #b7c681 100%
+    ) !important;
 
   clip-path: polygon(
     0 0,
@@ -507,34 +513,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   transform-origin: top center;
 
-  transform:
-    rotateX(0deg)
-    translateZ(18px);
-
-  transform-style: preserve-3d;
-
-  background:
-    linear-gradient(
-      145deg,
-      #dfe7b8 0%,
-      #d3dda4 55%,
-      #c4d08f 100%
-    );
-
-  border-top: 2px solid rgba(255,255,255,.45);
-
-  box-shadow:
-    0 18px 35px rgba(39, 48, 23, .25),
-    inset 0 -10px 18px rgba(49, 60, 27, .10);
-
-  transition:
-    transform 1.25s cubic-bezier(.22,.61,.36,1);
-
   z-index: 5;
 
-  backface-visibility: visible;
-}
+  box-shadow:
+    0 12px 25px rgba(45, 55, 28, 0.18);
 
+  transition:
+    transform 1.1s cubic-bezier(.22,.61,.36,1);
+}
 
 /* =========================================================
    INSIDE OF THE FLAP
@@ -1309,6 +1295,54 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-align:center; padding:1.6rem; font-size:0.68rem; letter-spacing:0.1em;
   color:var(--ink-soft); background:var(--ivory);
 }
+
+/* =========================================================
+   UNIFIED GREEN ENVELOPE TEXTURE
+   Keep the same green hard-cover texture on every envelope
+   surface — outer body, lining, flap, and flap interior.
+   ========================================================= */
+
+.envelope,
+.envelope-body,
+.envelope-lining,
+.envelope-flap,
+.envelope-flap::after {
+  background-color: #c4d092 !important;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,.10) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 72% 68%, rgba(70,82,38,.10) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 42% 84%, rgba(255,255,255,.06) 0 .8px, transparent 1.6px),
+    linear-gradient(145deg, #d8dfad 0%, #c4d092 45%, #b7c681 100%) !important;
+  background-size: 18px 18px, 23px 23px, 27px 27px, 100% 100% !important;
+}
+
+/* Make the inner lining use exactly the same green texture. */
+.envelope-lining {
+  box-shadow: inset 0 0 70px rgba(52,61,29,.12);
+}
+
+/* Keep the floral pattern subtle so it does not change the green surface. */
+.envelope-lining svg {
+  opacity: .28 !important;
+  filter: saturate(.45) contrast(.9);
+}
+
+/* The flap uses the same surface as the rest of the envelope. */
+.envelope-flap {
+  box-shadow: 0 12px 25px rgba(45,55,28,.18);
+}
+
+/* Same texture on the inside of the flap when it opens. */
+.envelope-flap::after {
+  box-shadow: inset 0 0 35px rgba(70,77,38,.12);
+}
+
+/* Match the surrounding envelope background too. */
+.envelope-wrap,
+.envelope {
+  background-color: #c4d092 !important;
+}
+
 </style>
 </head>
 <body class="no-scroll">
