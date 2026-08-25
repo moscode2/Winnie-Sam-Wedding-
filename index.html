@@ -24,9 +24,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* =========================================================
-   TOKENS
-   ========================================================= */
 :root{
   --ivory:#FBF7EE;
   --ivory-deep:#F2EADA;
@@ -118,10 +115,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   outline:2px solid var(--sage-deep);
   outline-offset:3px;
 }
-
-/* =========================================================
-   SIGNATURE MOTIF — linework floral wreath around initials
-   ========================================================= */
 .wreath{
   width: clamp(120px, 22vw, 190px);
   margin-inline:auto;
@@ -182,7 +175,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 @keyframes pulse{ 0%,100%{ opacity:0.4; transform:scale(0.85);} 50%{ opacity:1; transform:scale(1.15);} }
 
 /* =========================================================
-   OPENING INVITATION OVERLAY — dark, photographic envelope look
+   OPENING INVITATION OVERLAY 
    ========================================================= */
 .opening{
   position:fixed; inset:0; z-index:100;
@@ -1313,43 +1306,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     linear-gradient(145deg, #d8dfad 0%, #c4d092 45%, #b7c681 100%) !important;
   background-size: 18px 18px, 23px 23px, 27px 27px, 100% 100% !important;
 }
-
-/* Make the inner lining use exactly the same green texture. */
 .envelope-lining {
   box-shadow: inset 0 0 70px rgba(52,61,29,.12);
 }
-
-/* Keep the floral pattern subtle so it does not change the green surface. */
 .envelope-lining svg {
   opacity: .28 !important;
   filter: saturate(.45) contrast(.9);
 }
-
-/* The flap uses the same surface as the rest of the envelope. */
 .envelope-flap {
   box-shadow: 0 12px 25px rgba(45,55,28,.18);
 }
-
-/* Same texture on the inside of the flap when it opens. */
 .envelope-flap::after {
   box-shadow: inset 0 0 35px rgba(70,77,38,.12);
 }
-
-/* Match the surrounding envelope background too. */
 .envelope-wrap,
 .envelope {
   background-color: #c4d092 !important;
 }
 
 
-/* =========================================================
-   REFERENCE ENVELOPE — W&S EDITION
-   Matches the supplied portrait invitation:
-   black hard-cover edge, one unified green floral paper,
-   triangular flap, realistic folds and red W&S wax seal.
-   ========================================================= */
-
-/* The opening screen becomes the black outer frame */
 .opening{
   background:#050505 !important;
   padding:0 !important;
@@ -1608,14 +1583,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     1px 1px 0 rgba(255,100,100,.28),
     -1px -1px 0 rgba(70,0,0,.3) !important;
 }
-
-/* Don't show the old cover header/divider while the envelope is open */
 .opening.is-closed .invitation-card::before,
 .opening.is-closed .invitation-card::after{
   display:none;
 }
-
-/* Black outer hard-cover edge */
 .opening .invitation-card::marker{
   display:none;
 }
@@ -1827,13 +1798,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <div class="timeline-item reveal">
           <div class="timeline-photo"><img src="assets/DSC_0832.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:cover;"></div>
           <h3>Where It Began</h3>
-          <p> Every love story starts somewhere unexpected. Some snippet on how they met.</p>
+          <p> Every love story starts somewhere unexpected.</p>
         </div>
 
         <div class="timeline-item reveal">
           <div class="timeline-photo"><img src="assets/DSC_0957.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;"></div>
           <h3>The Journey</h3>
-          <p> From first dates to shared dreams, this is the space to describe the adventures and everyday moments that brought them closer.</p>
+          <p> From first dates to shared dreams.</p>
         </div>
 
         <div class="timeline-item reveal">
