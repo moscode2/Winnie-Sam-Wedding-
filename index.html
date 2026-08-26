@@ -210,12 +210,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* =========================================================
    OPENING INVITATION — vintage floral envelope + wax seal
-   The card locks to a 532:1182 aspect ratio and its own width is
-   computed from BOTH the viewport width and the viewport height
-   (via the aspect ratio), so it always fits the real screen with
-   no overflow — on a phone that's effectively edge-to-edge; on a
-   wide desktop window it centers as a card instead of stretching.
-   ========================================================= */
+  ==================================================== */
 .opening{
   --pad: 0px;
   --invite-paper:#d9da9a;
@@ -235,7 +230,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .invite-sheet{
   position:relative;
-  width:min(532px, 100%, calc((100dvh - 2 * var(--pad)) * 532 / 1182));
+  width:min(100vw, 100%, calc((100dvh - 2 * var(--pad)) * 532 / 1182));
   aspect-ratio:532 / 1182;
   overflow:hidden;
   isolation:isolate;
