@@ -210,9 +210,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* =========================================================
    OPENING INVITATION — vintage floral envelope + wax seal
-  ==================================================== */
+   The sheet fills the entire screen edge-to-edge on every device
+   (mobile and desktop); the floral SVG background and all
+   envelope/seal/text positions use percentages so they scale to
+   whatever aspect ratio the viewport has, with no letterboxing.
+   ========================================================= */
 .opening{
-  --pad: 0px;
   --invite-paper:#d9da9a;
   --invite-paper-light:#e3e3aa;
   --invite-floral:#8d9253;
@@ -220,58 +223,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   --invite-wax-dark:#770b15;
 
   position:fixed; inset:0; z-index:100;
-  display:flex; align-items:center; justify-content:center;
+  width:100vw; height:100dvh;
+  margin:0; padding:0;
   background:#1c1f14;
-  padding: var(--pad);
   overflow:hidden;
   transition: opacity 1s var(--ease), visibility 1s var(--ease);
 }
 .opening.is-closed{ opacity:0; visibility:hidden; pointer-events:none; }
 
-.invite-sheet {
-  position: relative;
-
-  width: min(
-    100vw,
-    calc(100dvh * 532 / 1182)
-  );
-
-  aspect-ratio: 532 / 1182;
-
-  max-height: 100dvh;
-
-  overflow: hidden;
-  isolation: isolate;
-
+.invite-sheet{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+  isolation:isolate;
   background:
-    radial-gradient(
-      ellipse at 30% 12%,
-      rgba(255,255,210,.20),
-      transparent 35%
-    ),
-    linear-gradient(
-      180deg,
-      var(--invite-paper-light),
-      var(--invite-paper)
-    );
-
-  box-shadow: 0 18px 55px rgba(0,0,0,.38);
-}
-/* Phones */
-@media (max-width: 600px) {
-  .invite-sheet {
-    width: 100vw;
-    height: 100dvh;
-    aspect-ratio: auto;
-    box-shadow: none;
-  }
-}
-
-/* Tablets and laptops */
-@media (min-width: 601px) {
-  .invite-sheet {
-    width: min(532px, 70vw, calc(100dvh * 532 / 1182));
-  }
+    radial-gradient(ellipse at 30% 12%, rgba(255,255,210,.20), transparent 35%),
+    linear-gradient(180deg, var(--invite-paper-light), var(--invite-paper));
+  animation: card-in 1.1s var(--ease) both;
 }
 @keyframes card-in{
   from{ opacity:0; transform:translateY(18px) scale(.97); }
@@ -810,14 +781,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-align:center; padding:1.6rem; font-size:0.68rem; letter-spacing:0.1em;
   color:var(--ink-soft); background:var(--ivory);
 }
-invite-divider{
-  position:absolute; z-index:4;
-  top:75.7%; left:8%; width:84%; height:48px;
-}
-.invite-divider svg{ width:100%; height:100%; overflow:visible; }
 </style>
 </head>
 <body class="no-scroll">
+
 <!-- =========================================================
      FLOATING MUSIC TOGGLE
      ========================================================= -->
@@ -980,7 +947,7 @@ invite-divider{
       </svg>
     </button>
 
-    <div class="invite-text">You're invited</div>
+    <div class="invite-text">You are invited</div>
 
     <div class="invite-divider">
       <svg viewBox="0 0 440 48" xmlns="http://www.w3.org/2000/svg">
