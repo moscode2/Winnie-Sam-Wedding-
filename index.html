@@ -10,12 +10,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Winnie &amp; Sam are getting married">
 <meta property="og:description" content="Join us as we celebrate our wedding on 3 October 2026 at CITAM Woodley, Nairobi, Kenya.">
-<meta property="og:image" content="assets/DSC_0759.jpg">
+<meta property="og:image" content="https://winniesam.netlify.app/assets/DSC_0759.jpg">
 <meta property="og:url" content="https://winnieandsam.example.com">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Winnie &amp; Sam are getting married">
 <meta name="twitter:description" content="3 October 2026 · CITAM Woodley, Nairobi">
-<meta name="twitter:image" content="assets/DSC_0759.jpg">
+<meta name="twitter:image" content="https://winniesam.netlify.app/assets/DSC_0759.jpg">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%83%3C/text%3E%3C/svg%3E">
 
@@ -209,157 +209,283 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .pin-chip:hover{ background:var(--sage-deep); color:var(--white); border-color:var(--sage-deep); transform:translateY(-2px); }
 
 /* =========================================================
-   OPENING INVITATION — vintage floral envelope + wax seal
-   The sheet fills the entire screen edge-to-edge on every device
-   (mobile and desktop); the floral SVG background and all
-   envelope/seal/text positions use percentages so they scale to
-   whatever aspect ratio the viewport has, with no letterboxing.
+   OPENING INVITATION — a two-sided flap that hinges open in
+   3D, passes behind the envelope at 90°, and releases the
+   card from the pocket.
    ========================================================= */
 .opening{
-  --invite-paper:#d9da9a;
-  --invite-paper-light:#e3e3aa;
-  --invite-floral:#8d9253;
-  --invite-ink:#304914;
-  --invite-wax-dark:#770b15;
+  --paper:#cfd48f;
+  --paper-lit:#e4e6b4;
+  --paper-dark:#b6bc73;
+  --lining:#5d6a3a;
+  --lining-lit:#778551;
+  --floral-dark:#8e9553;
+  --floral-lit:#eef0c2;
+  --invite-ink:#2f4a16;
+  --wax-dark:#6d0710;
 
   position:fixed; inset:0; z-index:100;
-  width:100vw; height:100dvh;
-  margin:0; padding:0;
-  background:#1c1f14;
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(ellipse at 50% 38%, #2b3020, #12150c 72%);
   overflow:hidden;
-  transition: opacity 1s var(--ease), visibility 1s var(--ease);
+  transition: opacity 1.05s var(--ease), visibility 1.05s var(--ease);
 }
 .opening.is-closed{ opacity:0; visibility:hidden; pointer-events:none; }
 
-.invite-sheet{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  margin:0;
-  overflow:hidden;
-  isolation:isolate;
-  background:
-    radial-gradient(ellipse at 30% 12%, rgba(255,255,210,.20), transparent 35%),
-    linear-gradient(180deg, var(--invite-paper-light), var(--invite-paper));
-  animation: card-in 1.1s var(--ease) both;
-}
-@keyframes card-in{
-  from{ opacity:0; transform:translateY(18px) scale(.97); }
-  to{ opacity:1; transform:translateY(0) scale(1); }
-}
-
-/* Dense vintage botanical linework, tiled behind everything */
-.invite-floral-bg{
-  position:absolute; inset:0; z-index:0;
-  width:100%; height:100%;
-  opacity:.46;
-  color:var(--invite-floral);
-}
-
-/* Extremely subtle paper grain */
-.invite-grain{
-  position:absolute; inset:0; z-index:8;
+/* The handoff. The envelope's panels fade first, so only the card is
+   left; the scene then drifts gently toward the viewer and dissolves,
+   with the page already waiting behind it. Nothing snaps. */
+.opening.handoff{
+  opacity:0;
   pointer-events:none;
-  opacity:.12;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.23'/%3E%3C/svg%3E");
-  mix-blend-mode:multiply;
+  transition:opacity 1.5s cubic-bezier(.36,0,.22,1) .35s;
+}
+.opening.handoff .env-scene{
+  transform:scale(1.42) translateY(-2.5%);
+  transition:transform 1.9s cubic-bezier(.3,0,.22,1);
+}
+.opening.handoff .env-back,
+.opening.handoff .env-pocket,
+.opening.handoff .env-flap,
+.opening.handoff .flap-shadow,
+.opening.handoff .env-hint{
+  opacity:0;
+  transition:opacity .75s cubic-bezier(.4,0,.5,1);
 }
 
-/* Envelope */
-.invite-envelope{
-  position:absolute; z-index:2;
-  left:0; top:0; width:100%; height:48%;
-  filter:drop-shadow(0 4px 5px rgba(42,48,12,.14));
+.env-scene{
+  position:relative;
+  width:min(100%, 520px);
+  height:100%;
+  max-height:100dvh;
+  perspective:1400px;
+  perspective-origin:50% 26%;
+  cursor:pointer;
+  animation:env-in .9s var(--ease) both;
+  transition:transform 1.8s var(--ease);
 }
-.invite-envelope-body{
-  position:absolute; left:0; top:20%; width:100%; height:80%;
+@keyframes env-in{
+  from{ opacity:0; transform:translateY(18px) scale(.965); }
+  to{ opacity:1; transform:none; }
+}
+.opening.opened .env-scene{ transform:translateY(-1.5%); }
+
+.paper{
   background:
-    linear-gradient(145deg, rgba(255,255,220,.08), transparent 42%),
-    linear-gradient(215deg, rgba(93,100,40,.10), transparent 45%);
-  clip-path:polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+    radial-gradient(ellipse at 32% 14%, rgba(255,255,225,.30), transparent 46%),
+    radial-gradient(ellipse at 78% 88%, rgba(120,128,60,.16), transparent 52%),
+    linear-gradient(178deg, var(--paper-lit), var(--paper) 42%, var(--paper-dark));
 }
-.invite-flap{
-  position:absolute; inset:0;
-  background:
-    linear-gradient(150deg, rgba(255,255,215,.16), transparent 50%),
-    linear-gradient(30deg, rgba(80,88,35,.07), transparent 52%);
-  clip-path:polygon(0 0, 100% 0, 50% 73%);
-  filter:drop-shadow(0 4px 4px rgba(46,50,15,.20));
-  transform-origin:top center;
-  transition:transform .8s var(--ease), opacity .6s ease;
-}
-.invite-flap.flap-open{ transform:translateY(-55%) rotate(-2deg); opacity:0; }
-
-.invite-fold-left, .invite-fold-right{
-  position:absolute; top:31%; width:53%; height:42%;
-  pointer-events:none; opacity:.7;
-}
-.invite-fold-left{
-  left:-3%;
-  background:linear-gradient(150deg, transparent 46%, rgba(69,77,29,.26) 48%, transparent 50%);
-}
-.invite-fold-right{
-  right:-3%;
-  background:linear-gradient(210deg, transparent 46%, rgba(69,77,29,.26) 48%, transparent 50%);
+.env-floral{
+  position:absolute; inset:0; width:100%; height:100%;
+  opacity:.85; pointer-events:none;
 }
 
-/* Wax seal — a real button so it's tappable/keyboard-accessible */
-.invite-seal{
+.env-back{ position:absolute; inset:0; z-index:1; overflow:hidden; }
+
+/* ---- Card inside the pocket ---- */
+.env-card{
+  position:absolute; z-index:3;
+  left:7%; width:86%;
+  top:5%; height:80%;
+  background:linear-gradient(170deg,#fffdf4,#f5eeda);
+  border:1px solid rgba(198,161,91,.5);
+  box-shadow:inset 0 0 0 6px rgba(255,255,255,.62), 0 2px 6px rgba(30,34,16,.2);
+  transform:translateY(52%);
+  will-change:transform;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:2rem 1.4rem; color:var(--ink);
+}
+/* Slide + settle + push-in, delayed so it waits for the flap —
+   the same transition-delay sequencing the CodePen uses. */
+.opening.opened .env-card{
+  animation:card-rise 2.3s 1.5s both;
+}
+@keyframes card-rise{
+  0%{
+    transform:translateY(52%);
+    box-shadow:inset 0 0 0 6px rgba(255,255,255,.62), 0 2px 6px rgba(30,34,16,.2);
+    animation-timing-function:cubic-bezier(.19,.9,.26,1);
+  }
+  62%{
+    transform:translateY(-3%);
+    box-shadow:inset 0 0 0 6px rgba(255,255,255,.62), 0 26px 46px rgba(18,21,10,.5);
+    animation-timing-function:cubic-bezier(.4,0,.35,1);
+  }
+  100%{
+    transform:translateY(-5%) scale(1.09);
+    box-shadow:inset 0 0 0 6px rgba(255,255,255,.62), 0 34px 60px rgba(18,21,10,.55);
+  }
+}
+.env-card .c-mono{
+  font-family:var(--font-display); font-style:italic;
+  font-size:clamp(2.1rem,8.5vw,2.9rem); color:var(--gold); line-height:1;
+}
+.env-card .c-rule{ width:44px; height:1px; background:var(--gold); margin:1.05rem auto; opacity:.75; }
+.env-card .c-eyebrow{ font-size:.6rem; letter-spacing:.34em; text-transform:uppercase; color:var(--sage-deep); }
+.env-card .c-names{
+  margin-top:.7rem; font-family:var(--font-display);
+  font-size:clamp(2rem,8.5vw,2.9rem); line-height:1.05; color:var(--ink);
+}
+.env-card .c-names span{ font-style:italic; color:var(--gold); }
+.env-card .c-date{ margin-top:1rem; font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-soft); }
+.env-card .c-venue{ margin-top:.35rem; font-family:var(--font-display); font-style:italic; font-size:1.05rem; color:var(--sage-deep); }
+
+/* ---- Front pocket ---- */
+.env-pocket{
   position:absolute; z-index:5;
-  left:50%; top:25.0%;
-  width:37.5%; aspect-ratio:1;
+  left:0; right:0; top:43%; bottom:0;
+  overflow:hidden;
+  clip-path:polygon(0 0, 50% 9%, 100% 0, 100% 100%, 0 100%);
+}
+
+
+
+/* Fold shadows. Each is a solid shape clipped to the fold, then
+   blurred — clip-path runs before filter, so the blur bleeds past
+   the edge and only that soft fringe is visible beyond the paper. */
+.flap-shadow{
+  position:absolute; z-index:6;
+  left:0; top:0; width:100%; height:47%;
+  clip-path:polygon(0 0, 100% 0, 50% 100%);
+  background:rgba(34,40,14,.62);
+  filter:blur(9px);
+  transform:translateY(7px) scale(1.012);
+  transform-origin:top center;
+  pointer-events:none;
+  transition:opacity .5s ease;
+}
+.opening.opened .flap-shadow{ opacity:0; transition:opacity .8s ease .35s; }
+
+/* Shadow cast under the pocket's V notch by the side folds behind it */
+.pocket-shadow{
+  position:absolute; z-index:2;
+  left:-2%; top:0; width:104%; height:26%;
+  clip-path:polygon(0 0, 50% 34%, 100% 0, 100% 26%, 50% 60%, 0 26%);
+  background:rgba(34,40,14,.5);
+  filter:blur(7px);
+  pointer-events:none;
+}
+
+/* ---- The flap: a 3D hinge with two real faces ---- */
+.env-flap{
+  position:absolute; z-index:7;
+  left:0; top:0; width:100%; height:47%;
+  transform-origin:top center;
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+.opening.opened .env-flap{
+  animation:flap-open 1.85s cubic-bezier(.32,.02,.16,1) .45s forwards;
+}
+@keyframes flap-open{
+  0%   { transform:rotateX(0deg);    z-index:7; }
+  49%  {                             z-index:7; }
+  50%  {                             z-index:2; }
+  84%  { transform:rotateX(-183deg); z-index:2; }
+  100% { transform:rotateX(-178deg); z-index:2; }
+}
+
+/* Faces carry the clipping and shading so the hinge itself stays 3D */
+.flap-face{
+  position:absolute; inset:0;
+  overflow:hidden;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+.flap-face.front{ clip-path:polygon(0 0, 100% 0, 50% 100%); }
+.flap-face.back{
+  clip-path:polygon(0 100%, 100% 100%, 50% 0);
+  transform:rotateX(180deg);
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(255,255,225,.10), transparent 60%),
+    linear-gradient(180deg, var(--lining), #4a552e);
+}
+.flap-face.back::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,.28), transparent 42%);
+}
+/* Soft crease shading along the fold, brightest when closed */
+.flap-face.front::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(255,255,220,.20), transparent 46%, rgba(78,86,32,.20));
+}
+
+/* ---- Wax seal (transform on the button, filter on a static child) ---- */
+.env-seal{
+  position:absolute; z-index:9;
+  left:50%; top:44%;
+  width:min(34%, 190px); aspect-ratio:1;
+  padding:0;
   transform:translate(-50%,-50%);
-  filter:
-    drop-shadow(0 7px 7px rgba(45,18,9,.42))
-    drop-shadow(0 1px 1px rgba(255,110,110,.35));
-  transition:transform .6s var(--ease), opacity .5s ease;
+  will-change:transform;
+  transition:transform .95s cubic-bezier(.45,-0.15,.7,.55), opacity .7s ease .2s;
 }
-.invite-seal.seal-open{ transform:translate(-50%,-50%) translateY(-90px) scale(1.15) rotate(-12deg); opacity:0; }
-
-.invite-seal-svg{ width:100%; height:100%; overflow:visible; }
-
-.invite-monogram{
-  font-family:Georgia,"Times New Roman",serif;
-  font-weight:400;
-  fill:none;
-  stroke:var(--invite-wax-dark);
-  stroke-width:2.3;
-  paint-order:stroke;
+.seal-inner{
+  width:100%; height:100%;
+  filter:drop-shadow(0 8px 10px rgba(38,14,8,.5));
+  animation:seal-breathe 3.6s ease-in-out infinite;
 }
-.invite-monogram-highlight{
-  font-family:Georgia,"Times New Roman",serif;
-  font-weight:400;
-  fill:none;
-  stroke:rgba(255,105,105,.62);
-  stroke-width:.9;
+@keyframes seal-breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.03); } }
+.env-seal.seal-open{
+  transform:translate(-50%,-50%) translateY(-15vh) scale(1.25) rotate(-17deg);
+  opacity:0;
 }
+.env-seal.seal-open .seal-inner{ animation:none; }
+.env-seal svg{ width:100%; height:100%; overflow:visible; display:block; }
 
-/* Invitation text */
+.seal-mono{ font-family:Georgia,"Times New Roman",serif; fill:none; stroke:var(--wax-dark); stroke-width:2.4; paint-order:stroke; }
+.seal-mono-hi{ font-family:Georgia,"Times New Roman",serif; fill:none; stroke:rgba(255,112,112,.6); stroke-width:.9; }
+
+/* ---- Script line on the pocket ---- */
 .invite-text{
-  position:absolute; z-index:4;
-  top:66.7%; left:0; width:100%;
+  position:absolute; z-index:6;
+  top:66%; left:0; width:100%;
   text-align:center;
   color:var(--invite-ink);
-  font-family:'Great Vibes', 'Brush Script MT', 'Segoe Script', cursive;
-  font-size:clamp(46px, 10.8vw, 66px);
-  line-height:1;
-  letter-spacing:-1.2px;
-  text-shadow:0 .7px 0 rgba(255,255,210,.22);
-  white-space:nowrap;
+  font-family:'Great Vibes','Brush Script MT','Segoe Script',cursive;
+  font-size:clamp(40px, 11vw, 62px);
+  line-height:1; letter-spacing:-1px;
+  text-shadow:0 1px 0 rgba(255,255,215,.45), 0 -1px 0 rgba(60,70,20,.18);
+  white-space:nowrap; pointer-events:none;
+  transition:opacity .45s ease;
 }
-
 .invite-divider{
-  position:absolute; z-index:4;
-  top:75.7%; left:8%; width:84%; height:48px;
+  position:absolute; z-index:6;
+  top:75%; left:12%; width:76%; height:34px;
+  color:var(--invite-ink); pointer-events:none;
+  transition:opacity .45s ease;
 }
 .invite-divider svg{ width:100%; height:100%; overflow:visible; }
+.opening.opened .invite-text,
+.opening.opened .invite-divider{ opacity:0; }
+
+.env-hint{
+  position:absolute; z-index:10; left:0; right:0; bottom:2.2rem;
+  text-align:center; font-size:.62rem; letter-spacing:.3em; text-transform:uppercase;
+  color:rgba(47,74,22,.6);
+  transition:opacity .35s ease;
+}
+.opening.opened .env-hint{ opacity:0; }
+
+/* Grain sits on the static back only — no blend mode, so nothing
+   recomposites while the flap and card are moving. */
+.env-grain{
+  position:absolute; inset:0; z-index:2;
+  pointer-events:none; opacity:.1;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+}
 
 /* =========================================================
    NAV
    ========================================================= */
-.site{ opacity:0; transition:opacity .8s var(--ease) .2s; }
+.site{ opacity:0; transition:opacity 1.3s var(--ease); }
 .site.is-visible{ opacity:1; }
+/* Hero settles a touch slower than the rest of the page. */
+.hero .reveal{ transition-duration:1.25s; }
+.hero .reveal-delay-1{ transition-delay:.18s; }
+.hero .reveal-delay-2{ transition-delay:.34s; }
+.hero .reveal-delay-3{ transition-delay:.5s; }
 
 .nav{
   position:fixed; top:0; left:0; right:0; z-index:50;
@@ -592,7 +718,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-align:center;
 }
 .detail-card .icon{
-  width:34px; height:34px; margin-inline:auto 0.9rem;
+  width:34px; height:34px; margin:0 auto 0.9rem;
   color:var(--sage-deep);
 }
 .detail-card .icon svg{ width:100%; height:100%; }
@@ -785,111 +911,189 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 </head>
 <body class="no-scroll">
 
-<!-- =========================================================
-     FLOATING MUSIC TOGGLE
-     ========================================================= -->
 <button class="music-toggle" id="musicToggle" aria-pressed="false" aria-label="Play Yes I Do by Willy Paul and Alaine">
   <span class="dot" aria-hidden="true"></span>
   <span id="musicLabel">Yes I Do</span>
 </button>
-<!-- Hidden YouTube player — audio only, no visible video, no autoplay -->
 <div id="yt-player" style="position:absolute;width:0;height:0;overflow:hidden;"></div>
 <script src="https://www.youtube.com/iframe_api"></script>
 
-<!-- =========================================================
-     OPENING INVITATION — vintage floral envelope + wax seal
-     ========================================================= -->
 <div class="opening" id="opening">
-  <main class="invite-sheet">
 
-    <!-- Repeating botanical illustration -->
-    <svg class="invite-floral-bg" viewBox="0 0 532 1182" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="botanical" width="265" height="295" patternUnits="userSpaceOnUse">
-          <g fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M42 48 C18 29 19 8 36 7 C52 6 57 25 55 39
-                     C62 18 79 11 87 23 C94 35 78 48 60 54
-                     C82 48 103 57 99 72 C95 87 70 80 57 67
-                     C63 87 54 105 39 99 C24 94 29 72 40 60
-                     C19 67 3 59 7 45 C11 32 28 35 42 48Z"/>
-            <path d="M49 54 C42 44 41 33 45 21
-                     M53 57 C65 46 72 35 75 25
-                     M52 59 C66 64 78 70 87 76
-                     M47 59 C38 72 35 82 35 91
-                     M44 55 C31 53 21 49 12 43"/>
-            <circle cx="50" cy="57" r="7"/>
-            <circle cx="50" cy="57" r="3"/>
+  <!-- Shared embossed-botanical pattern definitions -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="flora" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <!-- full bloom -->
+        <path d="M62 30 C74 22 88 27 89 40 C90 51 80 57 70 56 C82 60 88 72 81 81
+                 C74 90 61 87 55 78 C57 90 49 101 38 99 C27 96 24 84 30 75
+                 C20 82 8 78 6 67 C5 56 15 49 26 51 C15 45 12 32 21 25
+                 C30 18 43 22 47 33 C48 21 55 14 62 15 C68 16 66 24 62 30Z"/>
+        <path d="M47 60 C42 50 42 41 46 33 M53 62 C63 56 70 49 73 41
+                 M53 66 C63 70 71 76 76 83 M46 66 C41 76 38 84 38 92
+                 M43 62 C32 62 23 61 15 58"/>
+        <ellipse cx="48" cy="62" rx="9" ry="8"/>
+        <path d="M42 62 C44 57 52 57 54 62 M42 64 C44 69 52 69 54 64"/>
+        <circle cx="48" cy="62" r="3.2"/>
 
-            <path d="M135 35 C155 20 176 23 186 39 C165 48 146 47 135 35Z"/>
-            <path d="M142 37 C157 37 169 36 181 39"/>
-            <path d="M188 42 C208 26 230 32 238 48 C217 57 198 53 188 42Z"/>
-            <path d="M195 44 C210 45 222 47 234 48"/>
+        <!-- daisy -->
+        <g transform="translate(168 44)">
+          <circle r="9"/><circle r="3.5"/>
+          <path d="M0 -9 L0 -24 M6.4 -6.4 L17 -17 M9 0 L24 0 M6.4 6.4 L17 17
+                   M0 9 L0 24 M-6.4 6.4 L-17 17 M-9 0 L-24 0 M-6.4 -6.4 L-17 -17"/>
+          <path d="M-5 -21 C-2 -26 2 -26 5 -21 M12 -18 C15 -22 19 -20 19 -14
+                   M21 -5 C26 -2 26 2 21 5 M18 12 C22 15 20 19 14 19
+                   M5 21 C2 26 -2 26 -5 21 M-12 18 C-15 22 -19 20 -19 14
+                   M-21 5 C-26 2 -26 -2 -21 -5 M-18 -12 C-22 -15 -20 -19 -14 -19"/>
+        </g>
 
-            <path d="M8 130 C47 107 72 112 103 138
-                     C126 157 141 154 161 137
-                     C183 118 207 121 231 144"/>
-            <path d="M18 139 C34 128 43 126 58 128
-                     M88 128 C97 121 105 120 115 123
-                     M173 132 C183 126 192 126 202 131"/>
+        <!-- leafy sprig, top right -->
+        <path d="M208 88 C222 74 236 72 240 60"/>
+        <path d="M212 84 C208 76 210 70 217 68 C221 74 220 81 212 84Z"/>
+        <path d="M221 78 C219 70 222 64 229 63 C232 69 229 76 221 78Z"/>
+        <path d="M230 70 C229 63 232 57 238 57 C240 63 237 68 230 70Z"/>
 
-            <path d="M212 93 C203 83 207 71 217 73 C222 74 224 80 223 85
-                     C230 77 241 79 241 87 C240 94 231 95 225 92
-                     C232 99 229 110 220 108 C214 107 214 99 217 94
-                     C208 101 199 96 201 89 C202 85 207 86 212 93Z"/>
-            <circle cx="221" cy="91" r="5"/>
+        <!-- trailing vine across the middle -->
+        <path d="M2 128 C34 108 62 114 88 136 C110 154 128 152 146 136
+                 C168 117 194 120 216 142 C226 152 234 154 240 152"/>
+        <path d="M16 132 C26 122 36 120 47 124 M60 124 C68 116 78 116 86 121
+                 M152 130 C160 121 170 120 179 124 M196 128 C205 122 214 122 222 128"/>
+        <path d="M30 140 C24 148 24 156 31 159 C36 154 36 146 30 140Z"/>
+        <path d="M118 148 C112 157 113 165 120 167 C125 162 124 154 118 148Z"/>
+        <path d="M205 148 C199 157 200 165 207 167 C212 162 211 154 205 148Z"/>
 
-            <path d="M92 224 C74 207 77 190 89 188
-                     C103 187 109 201 108 214
-                     C115 197 130 195 137 206
-                     C144 217 132 228 117 231
-                     C134 229 148 240 143 251
-                     C138 263 120 258 110 245
-                     C112 261 102 274 91 268
-                     C80 262 84 247 91 238
-                     C75 245 63 237 66 227 C69 219 80 220 92 224Z"/>
-            <circle cx="105" cy="232" r="6"/>
-            <path d="M105 226 C98 215 94 205 95 195
-                     M109 229 C119 219 126 211 129 202
-                     M110 235 C121 239 130 246 136 253
-                     M103 238 C97 250 94 259 94 266
-                     M100 232 C87 230 78 228 69 226"/>
+        <!-- second full bloom, lower left -->
+        <path d="M74 208 C86 199 101 205 101 218 C101 229 91 235 81 233
+                 C93 238 99 250 92 259 C84 268 71 264 66 254 C67 267 58 277 47 275
+                 C36 272 33 260 39 251 C29 258 17 254 15 243 C14 232 24 225 35 227
+                 C24 221 21 208 30 201 C39 194 52 199 56 210 C57 197 64 191 71 193
+                 C77 194 78 202 74 208Z"/>
+        <path d="M57 238 C52 228 52 219 56 211 M63 240 C73 234 80 227 83 219
+                 M63 244 C73 248 81 254 86 261 M56 244 C51 254 48 262 48 270
+                 M53 240 C42 240 33 239 25 236"/>
+        <ellipse cx="58" cy="240" rx="9" ry="8"/>
+        <circle cx="58" cy="240" r="3.2"/>
 
-            <path d="M155 180 C177 164 202 164 218 181
-                     C198 190 175 189 155 180Z"/>
-            <path d="M162 180 C180 179 196 181 212 181"/>
-            <path d="M229 205 C245 189 258 192 264 207
-                     C250 214 238 214 229 205Z"/>
-            <path d="M232 206 C243 205 252 207 261 208"/>
+        <!-- five-petal blossom, right -->
+        <g transform="translate(188 214)">
+          <path d="M0 -18 C10 -22 18 -14 14 -5 C22 0 22 11 12 14
+                   C10 24 -1 26 -7 18 C-17 21 -24 12 -20 3
+                   C-26 -5 -20 -15 -10 -14 C-7 -22 -6 -20 0 -18Z"/>
+          <path d="M0 -14 C-3 -7 -3 6 0 12 M-13 -8 C-7 -4 4 -2 12 -6
+                   M-9 11 C-6 4 -1 -3 3 -9"/>
+          <circle r="4"/>
+        </g>
 
-            <circle cx="31" cy="185" r="18"/>
-            <path d="M31 167 L31 203 M13 185 L49 185
-                     M19 173 L43 197 M43 173 L19 197"/>
-            <circle cx="31" cy="185" r="4"/>
+        <!-- berry cluster -->
+        <g transform="translate(126 76)">
+          <path d="M0 0 C4 10 8 17 14 22"/>
+          <circle cx="-4" cy="6" r="4"/><circle cx="6" cy="11" r="4.4"/>
+          <circle cx="0" cy="18" r="3.6"/><circle cx="11" cy="21" r="3.4"/>
+        </g>
 
-            <path d="M228 267 C214 250 219 236 230 238
-                     C239 240 240 250 238 256
-                     C247 247 258 251 257 259
-                     C256 268 246 269 239 265
-                     C245 274 240 283 231 280
-                     C224 278 226 269 228 267Z"/>
-            <circle cx="234" cy="261" r="4"/>
-          </g>
-        </pattern>
-      </defs>
-      <rect width="532" height="1182" fill="url(#botanical)"/>
-      <rect width="532" height="1182" fill="url(#botanical)" opacity=".28" transform="translate(118 64) scale(1.13)"/>
-    </svg>
+        <!-- fern -->
+        <path d="M232 196 C220 216 214 240 214 262"/>
+        <path d="M229 204 C222 200 216 201 213 206 M226 214 C219 210 213 212 210 217
+                 M223 226 C216 223 211 225 208 231 M220 240 C214 238 209 241 207 247
+                 M217 252 C212 251 208 254 207 259"/>
 
-    <div class="invite-envelope">
-      <div class="invite-envelope-body"></div>
-      <div class="invite-flap" id="envelopeFlap"></div>
-      <div class="invite-fold-left"></div>
-      <div class="invite-fold-right"></div>
+        <!-- small buds scattered -->
+        <path d="M150 190 C144 182 147 174 154 175 C158 181 156 188 150 190Z"/>
+        <path d="M150 190 L152 200"/>
+        <path d="M104 118 C99 111 102 104 108 105 C112 110 110 116 104 118Z"/>
+        <path d="M104 118 L106 127"/>
+      </g>
+
+      <pattern id="floraLight" width="240" height="240" patternUnits="userSpaceOnUse" patternTransform="translate(1.6 1.8)">
+        <use href="#flora" style="color:var(--floral-lit)"/>
+      </pattern>
+      <pattern id="floraDark" width="240" height="240" patternUnits="userSpaceOnUse">
+        <use href="#flora" style="color:var(--floral-dark)"/>
+      </pattern>
+      <pattern id="floraLight2" width="240" height="240" patternUnits="userSpaceOnUse" patternTransform="translate(122 84) rotate(14) scale(.62)">
+        <use href="#flora" style="color:var(--floral-lit)"/>
+      </pattern>
+      <pattern id="floraDark2" width="240" height="240" patternUnits="userSpaceOnUse" patternTransform="translate(120.6 82.4) rotate(14) scale(.62)">
+        <use href="#flora" style="color:var(--floral-dark)"/>
+      </pattern>
+    </defs>
+  </svg>
+
+  <div class="env-scene" id="envScene">
+
+    <!-- Back of the envelope -->
+    <div class="env-back paper">
+      <svg class="env-floral" viewBox="0 0 520 1040" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="520" height="1040" fill="url(#floraLight)"/>
+        <rect width="520" height="1040" fill="url(#floraDark)"/>
+        <rect width="520" height="1040" fill="url(#floraLight2)" opacity=".55"/>
+        <rect width="520" height="1040" fill="url(#floraDark2)" opacity=".55"/>
+      </svg>
+      <div class="env-grain" aria-hidden="true"></div>
     </div>
 
-    <!-- Wax seal — tap to open immediately; the invitation also opens on its own -->
-    <button class="invite-seal" id="openInviteBtn" aria-label="Open your invitation">
-      <svg class="invite-seal-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+    <!-- The invitation card, tucked inside -->
+    <div class="env-card" id="envCard">
+      <div class="c-mono">W &amp; S</div>
+      <div class="c-rule"></div>
+      <div class="c-eyebrow">Together with their families</div>
+      <div class="c-names">Winnie <span>&amp;</span> Sam</div>
+      <div class="c-rule"></div>
+      <div class="c-date">3rd October 2026</div>
+      <div class="c-venue">CITAM Woodley, Nairobi</div>
+    </div>
+
+    <!-- Front pocket -->
+    <div class="env-pocket paper">
+      <svg class="env-floral" viewBox="0 0 520 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="520" height="600" fill="url(#floraLight)"/>
+        <rect width="520" height="600" fill="url(#floraDark)"/>
+        <rect width="520" height="600" fill="url(#floraLight2)" opacity=".55"/>
+        <rect width="520" height="600" fill="url(#floraDark2)" opacity=".55"/>
+      </svg>
+      <div class="pocket-shadow" aria-hidden="true"></div>
+    </div>
+
+
+    <div class="flap-shadow" aria-hidden="true"></div>
+
+    <!-- Hinged flap: front is the floral paper, back is the lining -->
+    <div class="env-flap" id="envFlap">
+      <div class="flap-face front paper">
+        <svg class="env-floral" viewBox="0 0 520 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="520" height="480" fill="url(#floraLight)"/>
+          <rect width="520" height="480" fill="url(#floraDark)"/>
+          <rect width="520" height="480" fill="url(#floraLight2)" opacity=".55"/>
+          <rect width="520" height="480" fill="url(#floraDark2)" opacity=".55"/>
+        </svg>
+      </div>
+      <div class="flap-face back"></div>
+    </div>
+
+    <!-- Script line on the pocket -->
+    <div class="invite-text">You are invited</div>
+    <div class="invite-divider" aria-hidden="true">
+      <svg viewBox="0 0 440 34" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M0 17 H186"/>
+          <path d="M254 17 H440"/>
+        </g>
+        <g transform="translate(220 17)" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M-13 0 C-7 -4 -4 -9 0 -14 C4 -9 7 -4 13 0 C7 4 4 9 0 14 C-4 9 -7 4 -13 0Z"/>
+          <path d="M0 -13 C-2 -6 -2 6 0 13"/>
+          <path d="M-12 0 C-7 -2 -4 -4 -3 -8 M12 0 C7 -2 4 -4 3 -8"/>
+          <path d="M-12 0 C-7 2 -4 4 -3 8 M12 0 C7 2 4 4 3 8"/>
+          <path d="M-21 0 C-17 -3 -15 -3 -13 0 C-15 3 -17 3 -21 0Z"/>
+          <path d="M21 0 C17 -3 15 -3 13 0 C15 3 17 3 21 0Z"/>
+          <circle cx="0" cy="0" r="2" fill="currentColor" stroke="none"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Wax seal -->
+    <button class="env-seal" id="openInviteBtn" aria-label="Open your invitation">
+      <div class="seal-inner">
+      <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="waxFace" cx="37%" cy="27%" r="78%">
             <stop offset="0%" stop-color="#e84047"/>
@@ -905,80 +1109,40 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             <stop offset="100%" stop-color="#6d0710"/>
           </linearGradient>
           <filter id="waxShadow" x="-30%" y="-30%" width="160%" height="170%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="3.4" result="blur"/>
-            <feOffset dy="3" result="off"/>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3.4"/>
+            <feOffset dy="3"/>
             <feComponentTransfer><feFuncA type="linear" slope=".52"/></feComponentTransfer>
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
 
-        <path d="M110 8
-                 C127 7 145 12 158 20
-                 C176 20 191 32 195 47
-                 C210 59 214 78 209 94
-                 C216 111 211 129 201 143
-                 C200 161 187 177 172 183
-                 C160 199 141 207 123 207
-                 C106 216 86 210 74 201
-                 C56 200 40 188 35 173
-                 C19 163 13 145 17 128
-                 C7 113 11 94 20 81
-                 C17 63 26 47 41 39
-                 C48 22 66 14 83 16
-                 C92 9 102 8 110 8Z"
+        <path d="M110 8 C127 7 145 12 158 20 C176 20 191 32 195 47
+                 C210 59 214 78 209 94 C216 111 211 129 201 143
+                 C200 161 187 177 172 183 C160 199 141 207 123 207
+                 C106 216 86 210 74 201 C56 200 40 188 35 173
+                 C19 163 13 145 17 128 C7 113 11 94 20 81
+                 C17 63 26 47 41 39 C48 22 66 14 83 16 C92 9 102 8 110 8Z"
               fill="url(#waxRim)" filter="url(#waxShadow)"/>
-
         <circle cx="110" cy="110" r="82" fill="url(#waxFace)" stroke="#65070f" stroke-width="2.5"/>
-
         <circle cx="110" cy="110" r="77" fill="none" stroke="rgba(245,76,82,.72)" stroke-width="2"/>
         <circle cx="110" cy="110" r="70.5" fill="none" stroke="#760912" stroke-width="2.2"/>
         <circle cx="110" cy="110" r="66" fill="none" stroke="rgba(237,65,72,.65)" stroke-width="1.2"/>
-
         <path d="M49 72 C59 39 88 27 115 30" fill="none" stroke="rgba(255,100,105,.30)" stroke-width="3" stroke-linecap="round"/>
 
-        <text x="109" y="125" text-anchor="middle" font-size="83" class="invite-monogram">W</text>
-        <text x="109" y="125" text-anchor="middle" font-size="83" class="invite-monogram-highlight">W</text>
-
-        <text x="145" y="166" text-anchor="middle" font-size="94" class="invite-monogram" transform="rotate(3 145 166)">S</text>
-        <text x="145" y="166" text-anchor="middle" font-size="94" class="invite-monogram-highlight" transform="rotate(3 145 166)">S</text>
-
-        <text x="110" y="151" text-anchor="middle" font-size="54" class="invite-monogram" font-family="Georgia,serif">&amp;</text>
-        <text x="110" y="151" text-anchor="middle" font-size="54" class="invite-monogram-highlight" font-family="Georgia,serif">&amp;</text>
+        <text x="88" y="128" text-anchor="middle" font-size="82" class="seal-mono">W</text>
+        <text x="88" y="128" text-anchor="middle" font-size="82" class="seal-mono-hi">W</text>
+        <text x="140" y="150" text-anchor="middle" font-size="82" class="seal-mono" transform="rotate(4 140 150)">S</text>
+        <text x="140" y="150" text-anchor="middle" font-size="82" class="seal-mono-hi" transform="rotate(4 140 150)">S</text>
+        <text x="112" y="146" text-anchor="middle" font-size="46" class="seal-mono">&amp;</text>
+        <text x="112" y="146" text-anchor="middle" font-size="46" class="seal-mono-hi">&amp;</text>
       </svg>
+      </div>
     </button>
 
-    <div class="invite-text">You are invited</div>
-
-    <div class="invite-divider">
-      <svg viewBox="0 0 440 48" xmlns="http://www.w3.org/2000/svg">
-        <g fill="none" stroke="var(--invite-ink)" stroke-width="1.15" stroke-linecap="round">
-          <path d="M0 24 H190"/>
-          <path d="M250 24 H440"/>
-        </g>
-        <g transform="translate(220 24)" fill="none" stroke="var(--invite-ink)" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M-15 0 C-8 -5 -5 -11 0 -16 C5 -11 8 -5 15 0
-                   C8 5 5 11 0 16 C-5 11 -8 5 -15 0Z"/>
-          <path d="M0 -15 C-2 -7 -2 7 0 15"/>
-          <path d="M-14 0 C-8 -2 -5 -5 -3 -9
-                   M14 0 C8 -2 5 -5 3 -9"/>
-          <path d="M-14 0 C-8 2 -5 5 -3 9
-                   M14 0 C8 2 5 5 3 9"/>
-          <path d="M-24 0 C-20 -4 -18 -4 -15 0
-                   C-18 4 -20 4 -24 0Z"/>
-          <path d="M24 0 C20 -4 18 -4 15 0
-                   C18 4 20 4 24 0Z"/>
-          <circle cx="0" cy="0" r="2.2" fill="var(--invite-ink)" stroke="none"/>
-        </g>
-      </svg>
-    </div>
-
-    <div class="invite-grain"></div>
-  </main>
+    <p class="env-hint">Tap to open</p>
+  </div>
 </div>
 
-<!-- =========================================================
-     MAIN SITE
-     ========================================================= -->
 <div class="site" id="site">
 
   <nav class="nav" id="nav">
@@ -1003,7 +1167,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <a href="#rsvp">RSVP</a>
   </div>
 
-  <!-- HERO -->
   <header class="hero" id="top">
     <div class="hero-frame" aria-hidden="true"></div>
     <span class="eyebrow reveal">Our Wedding Day</span>
@@ -1026,7 +1189,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
 
     <div class="hero-photo reveal reveal-delay-3">
-      <img src="assets/DSC_0830.jpg" alt="Winnie and Sam sharing a dance" style="width:100%;height:100%;object-fit:cover;">
+      <img src="https://winniesam.netlify.app/assets/DSC_0830.jpg" alt="Winnie and Sam sharing a dance" style="width:100%;height:100%;object-fit:cover;">
     </div>
 
     <a href="#countdown" class="scroll-cue">
@@ -1035,7 +1198,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </a>
   </header>
 
-  <!-- COUNTDOWN -->
   <section class="countdown-section" id="countdown">
     <div class="container">
       <div class="wreath reveal">
@@ -1063,7 +1225,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
   </section>
 
-  <!-- OUR STORY -->
   <section class="story" id="story">
     <div class="container">
       <span class="eyebrow reveal" style="display:block;text-align:center;">A Love Story</span>
@@ -1071,25 +1232,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
       <div class="timeline">
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="assets/DSC_0832.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0832.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:cover;"></div>
           <h3>Where It Began</h3>
           <p> Every love story starts somewhere unexpected.</p>
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="assets/DSC_0957.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0957.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;"></div>
           <h3>The Journey</h3>
           <p> From first dates to shared dreams.</p>
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="assets/DSC_0788.jpg" alt="Sam proposing to Winnie" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0788.jpg" alt="Sam proposing to Winnie" style="width:100%;height:100%;object-fit:cover;"></div>
           <h3>The Proposal</h3>
           <p> A heartfelt retelling of the moment Sam asked Winnie to spend forever together.</p>
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="assets/DSC_0915.jpg" alt="Winnie and Sam, close together" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0915.jpg" alt="Winnie and Sam, close together" style="width:100%;height:100%;object-fit:cover;"></div>
           <h3>Forever Begins</h3>
           <p>And now, surrounded by family and friends, Winnie and Sam are ready to begin the next beautiful chapter of their story — together, always.</p>
         </div>
@@ -1097,7 +1258,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
   </section>
 
-  <!-- THE BIG DAY -->
   <section class="details" id="day">
     <div class="container">
       <span class="eyebrow reveal" style="display:block;text-align:center;">Save The Date</span>
@@ -1133,7 +1293,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
   </section>
 
-  <!-- CEREMONY -->
   <section class="ceremony">
     <div class="container">
       <div class="ceremony-wrap">
@@ -1157,7 +1316,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </div>
     </div>
   </section>
-  <!-- GALLERY -->
+
   <section class="gallery" id="gallery">
     <div class="container">
       <span class="eyebrow reveal" style="display:block;text-align:center;">Photographs</span>
@@ -1165,7 +1324,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <p class="lede reveal">This Moments...</p>
 
       <div class="gallery-grid" id="galleryGrid">
-        <!-- Gallery items generated by JS from the placeholders array below -->
       </div>
     </div>
   </section>
@@ -1175,17 +1333,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <div class="lightbox-inner" id="lightboxInner">Photo placeholder</div>
   </div>
 
-  <!-- RSVP -->
   <section class="rsvp" id="rsvp">
     <div class="container">
       <span class="eyebrow reveal" style="display:block;text-align:center;">Kindly Respond</span>
       <h2 class="section-title reveal">Will You Celebrate With Us?</h2>
       <p class="lede reveal">Please RSVP by [date to be confirmed] so we can prepare for your arrival.</p>
 
-      <!--
-        Connect this form to Formspree (or any form backend) by replacing
-        YOUR_FORM_ID below with your actual Formspree endpoint ID.
-      -->
       <form class="rsvp-form reveal" id="rsvpForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
         <div class="field">
           <label for="fullName">Full Name</label>
@@ -1228,7 +1381,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
   </section>
 
-  <!-- CLOSING -->
   <section class="closing">
     <div class="container">
       <div class="wreath reveal">
@@ -1252,43 +1404,67 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 (function(){
   "use strict";
 
-  /* ---------- Opening invitation: peel the seal, open the flap, reveal the site — automatically ---------- */
+  /* ---------- Opening invitation ---------- */
   var opening = document.getElementById('opening');
   var openBtn = document.getElementById('openInviteBtn');
-  var envelopeFlap = document.getElementById('envelopeFlap');
+  var envScene = document.getElementById('envScene');
+  var envCard = document.getElementById('envCard');
   var site = document.getElementById('site');
   var body = document.body;
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var opened = false;
+  var finished = false;
+  var timers = [];
 
-  function openInvitation(){
-    if (opened) { return; }
-    opened = true;
-
-    if (reduceMotion){
-      opening.classList.add('is-closed');
-      body.classList.remove('no-scroll');
-      site.classList.add('is-visible');
-      document.querySelectorAll('.hero .reveal').forEach(function(el){ el.classList.add('is-visible'); });
-      return;
-    }
-
-    openBtn.classList.add('seal-open');
-    setTimeout(function(){
-      envelopeFlap.classList.add('flap-open');
-    }, 200);
-    setTimeout(function(){
-      opening.classList.add('is-closed');
-      body.classList.remove('no-scroll');
-      site.classList.add('is-visible');
-      document.querySelectorAll('.hero .reveal').forEach(function(el){ el.classList.add('is-visible'); });
-    }, 1100);
+  function revealHero(){
+    document.querySelectorAll('.hero .reveal').forEach(function(el){ el.classList.add('is-visible'); });
   }
 
-  // Opens automatically a beat after the page loads, so guests don't have to tap
-  // anything — the seal stays tappable too, in case someone wants to skip ahead.
-  setTimeout(openInvitation, reduceMotion ? 0 : 1600);
-  openBtn.addEventListener('click', function(){ openInvitation(); });
+  // Graceful exit: the page is already fading up behind the card, the
+  // hero settles while the envelope is still dissolving, and only then
+  // is the overlay taken out of the document.
+  function handoff(){
+    if (finished) { return; }
+    finished = true;
+    timers.forEach(clearTimeout);
+
+    site.classList.add('is-visible');
+    body.classList.remove('no-scroll');
+    opening.classList.add('handoff');
+
+    setTimeout(revealHero, 620);
+    setTimeout(function(){ opening.classList.add('is-closed'); }, 2100);
+  }
+
+  // Immediate exit, used for skip-taps and reduced motion.
+  function finish(){
+    if (finished) { return; }
+    finished = true;
+    timers.forEach(clearTimeout);
+    opening.classList.add('is-closed');
+    body.classList.remove('no-scroll');
+    site.classList.add('is-visible');
+    revealHero();
+  }
+
+  function openInvitation(){
+    if (opened) { finish(); return; }   // a second tap skips ahead
+    opened = true;
+
+    if (reduceMotion){ finish(); return; }
+
+    // One class drives the whole sequence; the flap and card carry
+    // their own delays in CSS, so nothing can drift out of step.
+    openBtn.classList.add('seal-open');
+    opening.classList.add('opened');
+
+    // The overlay closes when the card actually finishes moving.
+    envCard.addEventListener('animationend', handoff, { once: true });
+    timers.push(setTimeout(handoff, 5200));   // safety net
+  }
+
+  timers.push(setTimeout(openInvitation, reduceMotion ? 0 : 2200));
+  envScene.addEventListener('click', openInvitation);
 
   /* ---------- Scroll reveal ---------- */
   var revealEls = document.querySelectorAll('.reveal');
@@ -1306,7 +1482,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     revealEls.forEach(function(el){ el.classList.add('is-visible'); });
   }
 
-  /* ---------- Nav scroll state + mobile menu ---------- */
+  /* ---------- Nav ---------- */
   var nav = document.getElementById('nav');
   window.addEventListener('scroll', function(){
     if (window.scrollY > 40) nav.classList.add('scrolled');
@@ -1331,7 +1507,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   });
 
   /* ---------- Countdown ---------- */
-  // Wedding date at midnight, East Africa Time (UTC+3). Update if the ceremony time is confirmed.
   var weddingDate = new Date("2026-10-03T00:00:00+03:00").getTime();
 
   function updateCountdown(){
@@ -1362,28 +1537,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   /* ---------- Gallery ---------- */
   var galleryPhotos = [
-    { src: "assets/DSC_0746.jpg", alt: "Sam, portrait" },
-    { src: "assets/DSC_0764__1_.jpg", alt: "Winnie, portrait" },
-    { src: "assets/DSC_0800.jpg", alt: "Winnie and Sam" },
-    { src: "assets/DSC_0856.jpg", alt: "Sam, portrait" },
-    { src: "assets/DSC_0892.jpg", alt: "Winnie and Sam" },
-    { src: "assets/DSC_0938.jpg", alt: "Winnie, portrait" },
-    { src: "assets/DSC_0942.jpg", alt: "Winnie and Sam" },
-    { src: "assets/DSC_0976__1_.jpg", alt: "Winnie and Sam" },
-    { src: "assets/DSC_0992.jpg", alt: "Winnie and Sam" },
-    { src: "assets/DSC_0752.jpg", alt: "Sam, portrait" },
-    { src: "assets/DSC_0865.jpg", alt: "Sam, portrait" },
-    { src: "assets/DSC_0911.jpg", alt: "Winnie and Sam" },
-    { src: "assets/DSC_1000.jpg", alt: "Winnie and Sam, candid" },
-    { src: "assets/DSC_1024.jpg", alt: "Winnie and Sam, walking hand in hand" },
-    { src: "assets/DSC_1032.jpg", alt: "Winnie and Sam" },
-    { src: "assets/DSC_1045.jpg", alt: "Winnie and Sam" },
-    { src: "assets/DSC_1064.jpg", alt: "Winnie, portrait" },
-    { src: "assets/DSC_1090.jpg", alt: "Winnie and Sam" },
-    { src: "assets/DSC_1140.jpg", alt: "Winnie and Sam, casual" },
-    { src: "assets/DSC_1144.jpg", alt: "Winnie and Sam, casual" },
-    { src: "assets/DSC_1160.jpg", alt: "Winnie and Sam, football jerseys" },
-    { src: "assets/DSC_1171.jpg", alt: "Winnie and Sam, football jerseys" }
+    { src: "https://winniesam.netlify.app/assets/DSC_0746.jpg", alt: "Sam, portrait" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0764__1_.jpg", alt: "Winnie, portrait" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0800.jpg", alt: "Winnie and Sam" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0856.jpg", alt: "Sam, portrait" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0892.jpg", alt: "Winnie and Sam" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0938.jpg", alt: "Winnie, portrait" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0942.jpg", alt: "Winnie and Sam" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0976__1_.jpg", alt: "Winnie and Sam" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0992.jpg", alt: "Winnie and Sam" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0752.jpg", alt: "Sam, portrait" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0865.jpg", alt: "Sam, portrait" },
+    { src: "https://winniesam.netlify.app/assets/DSC_0911.jpg", alt: "Winnie and Sam" },
+    { src: "https://winniesam.netlify.app/assets/DSC_1000.jpg", alt: "Winnie and Sam, candid" },
+    { src: "https://winniesam.netlify.app/assets/DSC_1024.jpg", alt: "Winnie and Sam, walking hand in hand" },
+    { src: "https://winniesam.netlify.app/assets/DSC_1032.jpg", alt: "Winnie and Sam" },
+    { src: "https://winniesam.netlify.app/assets/DSC_1045.jpg", alt: "Winnie and Sam" },
+    { src: "https://winniesam.netlify.app/assets/DSC_1064.jpg", alt: "Winnie, portrait" },
+    { src: "https://winniesam.netlify.app/assets/DSC_1090.jpg", alt: "Winnie and Sam" },
+    { src: "https://winniesam.netlify.app/assets/DSC_1140.jpg", alt: "Winnie and Sam, casual" },
+    { src: "https://winniesam.netlify.app/assets/DSC_1144.jpg", alt: "Winnie and Sam, casual" },
+    { src: "https://winniesam.netlify.app/assets/DSC_1160.jpg", alt: "Winnie and Sam, football jerseys" },
+    { src: "https://winniesam.netlify.app/assets/DSC_1171.jpg", alt: "Winnie and Sam, football jerseys" }
   ];
   var galleryGrid = document.getElementById('galleryGrid');
   galleryPhotos.forEach(function(photo){
@@ -1413,7 +1588,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   lightbox.addEventListener('click', function(e){ if (e.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
 
-  /* ---------- RSVP form (Formspree-ready) ---------- */
+  /* ---------- RSVP form ---------- */
   var rsvpForm = document.getElementById('rsvpForm');
   var rsvpSuccess = document.getElementById('rsvpSuccess');
 
@@ -1444,19 +1619,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     });
   });
 
-  /* ---------- Background music toggle (YouTube: "Yes I Do" — Willy Paul ft. Alaine) ---------- */
+  /* ---------- Background music toggle ---------- */
   var musicToggle = document.getElementById('musicToggle');
   var musicLabel = document.getElementById('musicLabel');
   var ytPlayer = null;
   var ytReady = false;
   var isPlaying = false;
-  var playRequested = false; // true if the user tapped before the player finished loading
+  var playRequested = false;
 
   window.onYouTubeIframeAPIReady = function(){
     ytPlayer = new YT.Player('yt-player', {
       height: '0',
       width: '0',
-      videoId: 'LlZcj_G8OF4', // Yes I Do — Willy Paul ft. Alaine
+      videoId: 'LlZcj_G8OF4',
       playerVars: { autoplay: 0, controls: 0, disablekb: 1, fs: 0, modestbranding: 1, playsinline: 1 },
       events: {
         onReady: function(){
@@ -1486,7 +1661,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       if (ytReady) {
         startPlayback();
       } else {
-        // Player script still loading — play as soon as it's ready.
         playRequested = true;
         musicLabel.textContent = 'Loading…';
       }
