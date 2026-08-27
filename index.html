@@ -47,7 +47,7 @@
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; }
+html{ scroll-behavior:smooth; overflow-x:hidden; }
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
@@ -61,6 +61,7 @@ body{
   font-weight:300;
   line-height:1.6;
   overflow-x:hidden;
+  max-width:100vw;
   -webkit-font-smoothing:antialiased;
 }
 
@@ -209,9 +210,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .pin-chip:hover{ background:var(--sage-deep); color:var(--white); border-color:var(--sage-deep); transform:translateY(-2px); }
 
 /* =========================================================
-   OPENING INVITATION — a two-sided flap that hinges open in
-   3D, passes behind the envelope at 90°, and releases the
-   card from the pocket.
+   OPENING INVITATION 
    ========================================================= */
 .opening{
   --paper:#cfd48f;
@@ -338,8 +337,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   overflow:hidden;
   clip-path:polygon(0 0, 50% 9%, 100% 0, 100% 100%, 0 100%);
 }
-
-
 
 /* Fold shadows. Each is a solid shape clipped to the fold, then
    blurred — clip-path runs before filter, so the blur bleeds past
@@ -859,17 +856,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--gold); }
 .field textarea{ resize:vertical; min-height:100px; }
 
-.radio-row{ display:flex; gap:1.4rem; }
+.radio-row{ display:flex; flex-wrap:wrap; gap:0.75rem; }
 .radio-option{
-  flex:1;
+  flex:1 1 130px;
+  min-width:0;
   display:flex; align-items:center; justify-content:center; gap:0.5rem;
   border:1px solid var(--sage-pale);
-  padding:0.85rem 1rem;
+  padding:0.85rem 0.75rem;
   font-size:0.86rem; letter-spacing:0.03em;
   cursor:pointer;
   transition:border-color .3s, background .3s;
 }
-.radio-option input{ accent-color:var(--sage-deep); }
+.radio-option input{ accent-color:var(--sage-deep); margin:0; flex-shrink:0; }
+.radio-option span{ overflow-wrap:anywhere; }
 .radio-option:has(input:checked){ border-color:var(--sage-deep); background:var(--sage-pale); }
 
 .rsvp-submit{ margin-top:0.6rem; width:100%; justify-content:center; }
@@ -1189,7 +1188,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
 
     <div class="hero-photo reveal reveal-delay-3">
-      <img src="https://winniesam.netlify.app/assets/DSC_0830.jpg" alt="Winnie and Sam sharing a dance" style="width:100%;height:100%;object-fit:cover;">
+      <img src="https://winniesam.netlify.app/assets/DSC_0830.jpg" alt="Winnie and Sam sharing a dance" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
     </div>
 
     <a href="#countdown" class="scroll-cue">
@@ -1232,25 +1231,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
       <div class="timeline">
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0832.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0832.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>Where It Began</h3>
           <p> Every love story starts somewhere unexpected.</p>
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0957.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0957.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>The Journey</h3>
           <p> From first dates to shared dreams.</p>
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0788.jpg" alt="Sam proposing to Winnie" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0788.jpg" alt="Sam proposing to Winnie" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>The Proposal</h3>
           <p> A heartfelt retelling of the moment Sam asked Winnie to spend forever together.</p>
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0915.jpg" alt="Winnie and Sam, close together" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0915.jpg" alt="Winnie and Sam, close together" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>Forever Begins</h3>
           <p>And now, surrounded by family and friends, Winnie and Sam are ready to begin the next beautiful chapter of their story — together, always.</p>
         </div>
@@ -1356,10 +1355,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <label>Attending?</label>
           <div class="radio-row">
             <label class="radio-option">
-              <input type="radio" name="Attending" value="Attending" required> Attending
+              <input type="radio" name="Attending" value="Attending" required> <span>Attending</span>
             </label>
             <label class="radio-option">
-              <input type="radio" name="Attending" value="Not Attending"> Not Attending
+              <input type="radio" name="Attending" value="Not Attending"> <span>Not Attending</span>
             </label>
           </div>
         </div>
@@ -1432,8 +1431,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     body.classList.remove('no-scroll');
     opening.classList.add('handoff');
 
-    setTimeout(revealHero, 620);
-    setTimeout(function(){ opening.classList.add('is-closed'); }, 2100);
+    setTimeout(revealHero, 260);
+    setTimeout(function(){ opening.classList.add('is-closed'); }, 950);
   }
 
   // Immediate exit, used for skip-taps and reduced motion.
@@ -1460,10 +1459,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
     // The overlay closes when the card actually finishes moving.
     envCard.addEventListener('animationend', handoff, { once: true });
-    timers.push(setTimeout(handoff, 5200));   // safety net
+    timers.push(setTimeout(handoff, 2900));   // safety net
   }
 
-  timers.push(setTimeout(openInvitation, reduceMotion ? 0 : 2200));
+  timers.push(setTimeout(openInvitation, reduceMotion ? 0 : 900));
   envScene.addEventListener('click', openInvitation);
 
   /* ---------- Scroll reveal ---------- */
@@ -1567,7 +1566,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     item.setAttribute('role', 'button');
     item.setAttribute('tabindex', '0');
     item.setAttribute('aria-label', 'View photo: ' + photo.alt);
-    item.innerHTML = '<img src="' + photo.src + '" alt="' + photo.alt + '" style="width:100%;height:100%;object-fit:cover;">';
+    item.innerHTML = '<img src="' + photo.src + '" alt="' + photo.alt + '" style="width:100%;height:100%;object-fit:cover;object-position:top center;">';
     item.addEventListener('click', function(){ openLightbox(photo); });
     item.addEventListener('keydown', function(e){
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(photo); }
@@ -1625,9 +1624,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   var ytPlayer = null;
   var ytReady = false;
   var isPlaying = false;
-  var playRequested = false;
+  var pendingPlay = false;
 
-  window.onYouTubeIframeAPIReady = function(){
+  function setPlayingUI(playing){
+    isPlaying = playing;
+    musicToggle.classList.toggle('playing', playing);
+    musicToggle.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    musicLabel.textContent = playing ? 'Playing ♪' : 'Yes I Do';
+  }
+
+  function createPlayer(){
+    if (ytPlayer) { return; }
     ytPlayer = new YT.Player('yt-player', {
       height: '0',
       width: '0',
@@ -1636,9 +1643,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       events: {
         onReady: function(){
           ytReady = true;
-          if (playRequested) { startPlayback(); }
+          if (pendingPlay) { pendingPlay = false; ytPlayer.playVideo(); }
         },
         onStateChange: function(e){
+          if (e.data === YT.PlayerState.PLAYING) { setPlayingUI(true); }
+          if (e.data === YT.PlayerState.PAUSED) { setPlayingUI(false); }
           if (e.data === YT.PlayerState.ENDED) {
             ytPlayer.seekTo(0);
             ytPlayer.playVideo();
@@ -1646,30 +1655,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         }
       }
     });
-  };
-
-  function startPlayback(){
-    ytPlayer.playVideo();
-    isPlaying = true;
-    musicToggle.classList.add('playing');
-    musicToggle.setAttribute('aria-pressed', 'true');
-    musicLabel.textContent = 'Playing ♪';
   }
 
+  // Create the player as soon as the IFrame API script finishes loading —
+  // not on click — so by the time someone taps the button, play() can be
+  // called directly inside that same tap instead of a later, ungestured
+  // callback (which mobile browsers often block, forcing a second tap).
+  window.onYouTubeIframeAPIReady = createPlayer;
+
   musicToggle.addEventListener('click', function(){
-    if (!isPlaying) {
-      if (ytReady) {
-        startPlayback();
-      } else {
-        playRequested = true;
-        musicLabel.textContent = 'Loading…';
-      }
+    if (isPlaying) {
+      if (ytPlayer) { ytPlayer.pauseVideo(); }
+      setPlayingUI(false);
+      return;
+    }
+    if (ytPlayer && ytReady) {
+      ytPlayer.playVideo();
     } else {
-      ytPlayer.pauseVideo();
-      isPlaying = false;
-      musicToggle.classList.remove('playing');
-      musicToggle.setAttribute('aria-pressed', 'false');
-      musicLabel.textContent = 'Yes I Do';
+      pendingPlay = true;
+      musicLabel.textContent = 'Loading…';
     }
   });
 
