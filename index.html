@@ -25,8 +25,8 @@
 
 <style>
 :root{
-  --ivory:#FBF7EE;
-  --ivory-deep:#F2EADA;
+  --ivory:#F4EEDF;
+  --ivory-deep:#E8DDC8;
   --sage:#7C8B68;
   --sage-deep:#57654A;
   --sage-pale:#D7DECB;
@@ -786,7 +786,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* =========================================================
    GALLERY
    ========================================================= */
-.gallery{ background:var(--ivory-deep); }
+.gallery{
+  background:
+    radial-gradient(ellipse at 50% -8%, rgba(199,161,91,0.16), transparent 55%),
+    var(--sage);
+  color:var(--ivory);
+}
+.gallery .eyebrow{ color:var(--gold-soft); }
+.gallery .section-title{ color:var(--white); }
+.gallery .section-title em{ color:var(--gold-soft); }
+.gallery .lede{ color:rgba(251,247,238,0.82); }
+.gallery .wreath{ color:var(--gold-soft); }
 .gallery-grid{
   display:grid; gap:0.7rem;
   grid-template-columns:repeat(2,1fr);
@@ -797,7 +807,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   position:relative; overflow:hidden;
   aspect-ratio:1/1;
   background:var(--white);
-  border:1px solid var(--sage-pale);
+  border:1px solid rgba(251,247,238,0.35);
+  box-shadow:0 14px 30px -18px rgba(18,21,10,0.5);
   cursor:pointer;
 }
 .gallery-grid .gallery-item:nth-child(3n+1){ aspect-ratio:4/5; }
@@ -1289,6 +1300,20 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <p>CITAM Woodley, Nairobi</p>
         </div>
         <div class="detail-card reveal">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M4 21h16"/>
+              <path d="M6 21V10l6-5 6 5v11"/>
+              <path d="M9 21v-5h6v5"/>
+              <path d="M9 12h.01M15 12h.01"/>
+            </svg>
+          </div>
+        
+          <h3>Reception</h3>
+        
+          <p>Marist International University College</p>
+        </div>
+        <div class="detail-card reveal">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 4h9l3 3v13H6z"/><path d="M9 4v6l3-2 3 2V4"/></svg></div>
           <h3>Dress Code</h3>
           <p>To be confirmed</p>
@@ -1327,9 +1352,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <section class="gallery" id="gallery">
     <div class="container">
+      <div class="wreath reveal">
+        <svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg>
+      </div>
       <span class="eyebrow reveal" style="display:block;text-align:center;">Photographs</span>
-      <h2 class="section-title reveal">Moments We Cherish</h2>
-      <p class="lede reveal">This Moments...</p>
+      <h2 class="section-title reveal">Moments We <em>Cherish</em></h2>
+      <p class="lede reveal">From timeless elegance to easy, playful moments in between — a glimpse into their pre-wedding shoot.</p>
 
       <div class="gallery-grid" id="galleryGrid">
       </div>
@@ -1545,23 +1573,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   /* ---------- Gallery ---------- */
   var galleryPhotos = [
-    { src: "https://winniesam.netlify.app/assets/DSC_0746.jpg", alt: "Sam, portrait" },
-    { src: "https://winniesam.netlify.app/assets/DSC_0764__1_.jpg", alt: "Winnie, portrait" },
     { src: "https://winniesam.netlify.app/assets/DSC_0800.jpg", alt: "Winnie and Sam" },
-    { src: "https://winniesam.netlify.app/assets/DSC_0856.jpg", alt: "Sam, portrait" },
-    { src: "https://winniesam.netlify.app/assets/DSC_0892.jpg", alt: "Winnie and Sam" },
-    { src: "https://winniesam.netlify.app/assets/DSC_0938.jpg", alt: "Winnie, portrait" },
-    { src: "https://winniesam.netlify.app/assets/DSC_0942.jpg", alt: "Winnie and Sam" },
-    { src: "https://winniesam.netlify.app/assets/DSC_0976__1_.jpg", alt: "Winnie and Sam" },
-    { src: "https://winniesam.netlify.app/assets/DSC_0992.jpg", alt: "Winnie and Sam" },
-    { src: "https://winniesam.netlify.app/assets/DSC_0752.jpg", alt: "Sam, portrait" },
     { src: "https://winniesam.netlify.app/assets/DSC_0865.jpg", alt: "Sam, portrait" },
-    { src: "https://winniesam.netlify.app/assets/DSC_0911.jpg", alt: "Winnie and Sam" },
-    { src: "https://winniesam.netlify.app/assets/DSC_1000.jpg", alt: "Winnie and Sam, candid" },
     { src: "https://winniesam.netlify.app/assets/DSC_1024.jpg", alt: "Winnie and Sam, walking hand in hand" },
-    { src: "https://winniesam.netlify.app/assets/DSC_1032.jpg", alt: "Winnie and Sam" },
-    { src: "https://winniesam.netlify.app/assets/DSC_1045.jpg", alt: "Winnie and Sam" },
-    { src: "https://winniesam.netlify.app/assets/DSC_1064.jpg", alt: "Winnie, portrait" },
     { src: "https://winniesam.netlify.app/assets/DSC_1090.jpg", alt: "Winnie and Sam" },
     { src: "https://winniesam.netlify.app/assets/DSC_1140.jpg", alt: "Winnie and Sam, casual" },
     { src: "https://winniesam.netlify.app/assets/DSC_1144.jpg", alt: "Winnie and Sam, casual" },
