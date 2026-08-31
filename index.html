@@ -10,12 +10,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Winnie &amp; Sam are getting married">
 <meta property="og:description" content="Join us as we celebrate our wedding on 3 October 2026 at CITAM Woodley, Nairobi, Kenya.">
-<meta property="og:image" content="https://winniesam.netlify.app/assets/DSC_0759.jpg">
+<meta property="og:image" content="https://winniesam.netlify.app/assets/cover-photo.jpg">
 <meta property="og:url" content="https://winnieandsam.example.com">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Winnie &amp; Sam are getting married">
 <meta name="twitter:description" content="3 October 2026 · CITAM Woodley, Nairobi">
-<meta name="twitter:image" content="https://winniesam.netlify.app/assets/DSC_0759.jpg">
+<meta name="twitter:image" content="https://winniesam.netlify.app/assets/cover-photo.jpg">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%83%3C/text%3E%3C/svg%3E">
 
@@ -25,8 +25,8 @@
 
 <style>
 :root{
-  --ivory:#F4EEDF;
-  --ivory-deep:#E8DDC8;
+  --ivory:#FBF7EE;
+  --ivory-deep:#F2EADA;
   --sage:#7C8B68;
   --sage-deep:#57654A;
   --sage-pale:#D7DECB;
@@ -650,6 +650,72 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* =========================================================
+   FORMAL INVITATION
+   ========================================================= */
+.formal-invite{ background:var(--ivory); text-align:center; }
+.invite-we{ display:block; margin-bottom:0.6rem; }
+.invite-name{
+  font-family:var(--font-display);
+  font-size:clamp(1.9rem, 5.5vw, 2.7rem);
+  line-height:1.1;
+}
+.invite-parent{
+  margin-top:0.4rem;
+  font-size:0.86rem; color:var(--ink-soft); letter-spacing:0.02em;
+}
+.invite-amp{
+  font-family:var(--font-display); font-style:italic;
+  font-size:clamp(1.8rem,4vw,2.3rem); color:var(--gold);
+  margin:1.6rem 0;
+}
+.invite-cordial{
+  font-family:var(--font-display); font-style:italic;
+  font-size:clamp(1.15rem,3vw,1.4rem); color:var(--sage-deep);
+  max-width:34ch; margin:1.8rem auto 0;
+}
+
+/* =========================================================
+   WORDS WE LIVE BY — scripture verses
+   ========================================================= */
+.verses{ background:var(--ivory-deep); }
+.verses-grid{
+  display:grid; gap:2.6rem;
+  grid-template-columns:1fr;
+  max-width:920px; margin:3.2rem auto 0;
+}
+@media(min-width:860px){
+  .verses-grid{ grid-template-columns:1fr 0.85fr 1fr; align-items:start; gap:1.6rem; }
+}
+.verse-card{ text-align:center; }
+.verse-photo{
+  width:150px; aspect-ratio:4/5;
+  margin:0 auto 1.3rem;
+  border:1px solid var(--gold-soft);
+  padding:8px; background:var(--white);
+}
+.verse-photo img{ width:100%; height:100%; object-fit:cover; object-position:top center; }
+.verse-who{
+  font-family:var(--font-display); font-style:italic;
+  font-size:1.35rem; color:var(--sage-deep); margin-bottom:0.35rem;
+}
+.verse-ref{
+  font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--ink-soft); margin-bottom:0.8rem;
+}
+.verse-text{
+  font-family:var(--font-display); font-style:italic;
+  font-size:1.15rem; line-height:1.5; color:var(--ink);
+  max-width:26ch; margin-inline:auto;
+}
+.verse-card.shared{ padding-top:0.6rem; }
+@media(min-width:860px){ .verse-card.shared{ padding-top:2.2rem; } }
+.verse-card.shared .verse-who{ color:var(--gold); }
+.verse-card.shared .verse-icon{
+  width:34px; height:34px; margin:0 auto 1rem; color:var(--gold);
+}
+.verse-card.shared .verse-icon svg{ width:100%; height:100%; }
+
+/* =========================================================
    OUR STORY — timeline
    ========================================================= */
 .story{ background:var(--ivory); }
@@ -718,6 +784,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   max-width:820px; margin:3rem auto 0;
 }
 @media(min-width:640px){ .details-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(min-width:920px){ .details-grid-5{ grid-template-columns:repeat(3,1fr); max-width:960px; } }
 .detail-card{
   background:var(--white);
   border:1px solid var(--sage-pale);
@@ -742,6 +809,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ========================================================= */
 .ceremony {
   background: var(--ivory);
+}
+.ceremony.reception {
+  background: var(--ivory-deep);
 }
 
 .ceremony-wrap {
@@ -904,6 +974,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .rsvp-success.show{ display:block; }
 .rsvp-success p{ font-family:var(--font-display); font-size:1.25rem; color:var(--sage-deep); }
 .rsvp-form.hide{ display:none; }
+
+.gift-note{
+  max-width:480px; margin:2.4rem auto 0;
+  text-align:center;
+  font-family:var(--font-display); font-style:italic;
+  font-size:1.05rem; line-height:1.6; color:var(--sage-deep);
+  padding:1.4rem 1.6rem;
+  border:1px solid var(--gold-soft);
+  background:var(--white);
+}
+.rsvp-contacts{
+  margin-top:1.8rem;
+  text-align:center;
+  font-size:0.82rem; letter-spacing:0.03em; color:var(--ink-soft);
+}
+.rsvp-contacts a{ color:var(--sage-deep); text-decoration:underline; text-underline-offset:2px; }
 
 /* =========================================================
    CLOSING
@@ -1208,7 +1294,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
 
     <div class="hero-photo reveal reveal-delay-3">
-      <img src="https://winniesam.netlify.app/assets/DSC_0830.jpg" alt="Winnie and Sam sharing a dance" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+      <img src="https://winniesam.netlify.app/assets/cover-photo.jpg" alt="Winnie and Sam in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
     </div>
 
     <a href="#countdown" class="scroll-cue">
@@ -1239,6 +1325,57 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <div class="count-box">
           <div class="count-num" id="cd-seconds">00</div>
           <div class="count-label">Seconds</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="formal-invite" id="invite">
+    <div class="container">
+      <div class="wreath reveal">
+        <svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg>
+      </div>
+      <span class="eyebrow invite-we reveal">We</span>
+      <h2 class="invite-name reveal">Winnie Atieno Opuch</h2>
+      <p class="invite-parent reveal">Daughter of William Opuch and Catherine Okoth</p>
+      <div class="invite-amp reveal">&amp;</div>
+      <h2 class="invite-name reveal">Samuel Otieno Odongo</h2>
+      <p class="invite-parent reveal">Son of Jectone Odongo (Late) and Josephine Odongo</p>
+      <p class="invite-cordial reveal">Cordially invite you to share in the celebration of our wedding</p>
+    </div>
+  </section>
+
+  <section class="verses" id="verses">
+    <div class="container">
+      <span class="eyebrow reveal" style="display:block;text-align:center;">In Their Words</span>
+      <h2 class="section-title reveal">Words We Live <em>By</em></h2>
+
+      <div class="verses-grid">
+        <div class="verse-card reveal">
+          <div class="verse-photo">
+            <img src="https://winniesam.netlify.app/assets/winnie-portrait.jpg" alt="Winnie in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+          </div>
+          <div class="verse-who">Winnie Says</div>
+          <div class="verse-ref">Psalms 45:2</div>
+          <p class="verse-text">"You are the most excellent of men,"</p>
+        </div>
+
+        <div class="verse-card shared reveal reveal-delay-1">
+          <div class="verse-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 20c-5-3.5-8-7-8-10.5A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 8 3.5C20 13 17 16.5 12 20Z"/></svg>
+          </div>
+          <div class="verse-who">Winnie &amp; Sam Say</div>
+          <div class="verse-ref">1 Corinthians 13:8</div>
+          <p class="verse-text">"Love never fails," Your presence is the greatest gift of all.</p>
+        </div>
+
+        <div class="verse-card reveal reveal-delay-2">
+          <div class="verse-photo">
+            <img src="https://winniesam.netlify.app/assets/sam-portrait.jpg" alt="Sam in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+          </div>
+          <div class="verse-who">Sam Says</div>
+          <div class="verse-ref">Proverbs 31:29</div>
+          <p class="verse-text">"Many women do noble things but you surpass them all,"</p>
         </div>
       </div>
     </div>
@@ -1283,7 +1420,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <h2 class="section-title reveal">The Big Day</h2>
       <p class="lede reveal">Every detail you need to join Winnie &amp; Sam as they say "I do."</p>
 
-      <div class="details-grid">
+      <div class="details-grid details-grid-5">
         <div class="detail-card reveal">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></div>
           <h3>Date</h3>
@@ -1296,32 +1433,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </div>
         <div class="detail-card reveal">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg></div>
-          <h3>Venue</h3>
+          <h3>Church</h3>
           <p>CITAM Woodley, Nairobi</p>
         </div>
         <div class="detail-card reveal">
-          <div class="icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
-              <path d="M4 21h16"/>
-              <path d="M6 21V10l6-5 6 5v11"/>
-              <path d="M9 21v-5h6v5"/>
-              <path d="M9 12h.01M15 12h.01"/>
-            </svg>
-          </div>
-        
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
           <h3>Reception</h3>
-        
           <p>Marist International University College</p>
         </div>
         <div class="detail-card reveal">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 4h9l3 3v13H6z"/><path d="M9 4v6l3-2 3 2V4"/></svg></div>
           <h3>Dress Code</h3>
-          <p>To be confirmed</p>
+          <p style="font-size:1.05rem;">Sage Green &amp; Champagne Gold — luxury minimalist</p>
         </div>
       </div>
 
-      <div class="details-cta reveal">
-        <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=CITAM+Woodley+Nairobi" target="_blank" rel="noopener noreferrer">View Venue On Map →</a>
+      <div class="details-cta reveal" style="display:flex; flex-wrap:wrap; gap:0.9rem; justify-content:center;">
+        <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=CITAM+Woodley+Nairobi" target="_blank" rel="noopener noreferrer">View Church On Map →</a>
+        <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Marist+International+University+College+Nairobi" target="_blank" rel="noopener noreferrer">View Reception On Map →</a>
       </div>
     </div>
   </section>
@@ -1330,9 +1459,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <div class="container">
       <div class="ceremony-wrap">
         <div class="ceremony-text reveal">
-          <span class="eyebrow">The Ceremony</span>
+          <span class="eyebrow">The Church Wedding</span>
           <h2>CITAM Woodley</h2>
-          <p class="place">Nairobi, Kenya</p>
+          <p class="place">Nairobi, Kenya · 10:00am – 1:00pm</p>
           <p>
             We would be honoured to have you join us as we begin this beautiful
             new chapter together.
@@ -1340,6 +1469,30 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <a
             class="btn"
             href="https://www.google.com/maps/search/?api=1&query=CITAM+Woodley+Nairobi"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Get Directions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ceremony reception">
+    <div class="container">
+      <div class="ceremony-wrap">
+        <div class="ceremony-text reveal">
+          <span class="eyebrow">The Reception</span>
+          <h2>Marist International University College</h2>
+          <p class="place">Karen, Nairobi · 2:00pm – 6:00pm</p>
+          <p>
+            Immediately after the church service, join us at this separate
+            venue — a short drive away — where the celebration continues.
+          </p>
+          <a
+            class="btn"
+            href="https://www.google.com/maps/search/?api=1&query=Marist+International+University+College+Nairobi"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -1414,6 +1567,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <div class="wreath"><svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg></div>
         <p>Thank you for celebrating with Winnie &amp; Sam. We can't wait to share our special day with you! ❤️</p>
       </div>
+
+      <div class="gift-note reveal">
+        However, if you wish to honour us with a gift, kindly consider an enveloped one (cash, cheques, or vouchers).
+      </div>
+
+      <p class="rsvp-contacts reveal">
+        Winnie Opuch <a href="tel:+254729275042">+254 (0) 729 275 042</a>
+        &nbsp;&nbsp;•&nbsp;&nbsp;
+        Sam Odongo <a href="tel:+254729856967">+254 (0) 729 856 967</a>
+      </p>
     </div>
   </section>
 
