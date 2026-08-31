@@ -688,10 +688,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .verse-card{ text-align:center; }
 .verse-photo{
-  width:150px; aspect-ratio:4/5;
+  width:min(300px, 78vw); aspect-ratio:4/5;
   margin:0 auto 1.3rem;
   border:1px solid var(--gold-soft);
   padding:8px; background:var(--white);
+}
+@media(min-width:860px){
+  .verse-photo{ width:100%; max-width:220px; }
 }
 .verse-photo img{ width:100%; height:100%; object-fit:cover; object-position:top center; }
 .verse-who{
@@ -1294,7 +1297,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
 
     <div class="hero-photo reveal reveal-delay-3">
-      <img src="/assets/cover-photo.jpg" alt="Winnie and Sam in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+      <img src="assets/cover-photo.jpg" alt="Winnie and Sam in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
     </div>
 
     <a href="#countdown" class="scroll-cue">
@@ -1353,7 +1356,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="verses-grid">
         <div class="verse-card reveal">
           <div class="verse-photo">
-            <img src="/assets/winnie-portrait.jpg" alt="Winnie in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+            <img src="assets/winnie-portrait.jpg" alt="Winnie in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
           </div>
           <div class="verse-who">Winnie Says</div>
           <div class="verse-ref">Psalms 45:2</div>
@@ -1371,7 +1374,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
         <div class="verse-card reveal reveal-delay-2">
           <div class="verse-photo">
-            <img src="/assets/sam-portrait.jpg" alt="Sam in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+            <img src="assets/sam-portrait.jpg" alt="Sam in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
           </div>
           <div class="verse-who">Sam Says</div>
           <div class="verse-ref">Proverbs 31:29</div>
@@ -1388,25 +1391,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
       <div class="timeline">
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0832.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/DSC_0832.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>Where It Began</h3>
           <p> Every love story starts somewhere unexpected.</p>
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0957.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/DSC_0957.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>The Journey</h3>
           <p> From first dates to shared dreams.</p>
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0788.jpg" alt="Sam proposing to Winnie" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/DSC_0788.jpg" alt="Sam proposing to Winnie" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>The Proposal</h3>
           <p> A heartfelt retelling of the moment Sam asked Winnie to spend forever together.</p>
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="https://winniesam.netlify.app/assets/DSC_0915.jpg" alt="Winnie and Sam, close together" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/DSC_0915.jpg" alt="Winnie and Sam, close together" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>Forever Begins</h3>
           <p>And now, surrounded by family and friends, Winnie and Sam are ready to begin the next beautiful chapter of their story — together, always.</p>
         </div>
@@ -1736,14 +1739,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   /* ---------- Gallery ---------- */
   var galleryPhotos = [
-    { src: "https://winniesam.netlify.app/assets/DSC_0800.jpg", alt: "Winnie and Sam" },
-    { src: "https://winniesam.netlify.app/assets/DSC_0865.jpg", alt: "Sam, portrait" },
-    { src: "https://winniesam.netlify.app/assets/DSC_1024.jpg", alt: "Winnie and Sam, walking hand in hand" },
-    { src: "https://winniesam.netlify.app/assets/DSC_1090.jpg", alt: "Winnie and Sam" },
-    { src: "https://winniesam.netlify.app/assets/DSC_1140.jpg", alt: "Winnie and Sam, casual" },
-    { src: "https://winniesam.netlify.app/assets/DSC_1144.jpg", alt: "Winnie and Sam, casual" },
-    { src: "https://winniesam.netlify.app/assets/DSC_1160.jpg", alt: "Winnie and Sam, football jerseys" },
-    { src: "https://winniesam.netlify.app/assets/DSC_1171.jpg", alt: "Winnie and Sam, football jerseys" }
+    { src: "assets/DSC_0800.jpg", alt: "Winnie and Sam" },
+    { src: "assets/DSC_0865.jpg", alt: "Sam, portrait" },
+    { src: "assets/DSC_1024.jpg", alt: "Winnie and Sam, walking hand in hand" },
+    { src: "assets/DSC_1090.jpg", alt: "Winnie and Sam" },
+    { src: "assets/DSC_1140.jpg", alt: "Winnie and Sam, casual" },
+    { src: "assets/DSC_1144.jpg", alt: "Winnie and Sam, casual" },
+    { src: "assets/DSC_1160.jpg", alt: "Winnie and Sam, football jerseys" },
+    { src: "assets/DSC_1171.jpg", alt: "Winnie and Sam, football jerseys" }
   ];
   var galleryGrid = document.getElementById('galleryGrid');
   galleryPhotos.forEach(function(photo){
