@@ -1527,9 +1527,38 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <div class="container">
       <span class="eyebrow reveal" style="display:block;text-align:center;">Kindly Respond</span>
       <h2 class="section-title reveal">Will You Celebrate With Us?</h2>
-      <p class="lede reveal">Please RSVP by [date to be confirmed] so we can prepare for your arrival.</p>
+      <p class="lede reveal">Please RSVP  so we can prepare for your arrival.</p>
 
-      <form class="rsvp-form reveal" id="rsvpForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form 
+  class="rsvp-form reveal" 
+  id="rsvpForm"
+  action="https://api.web3forms.com/submit"
+  method="POST"
+>
+<input 
+  type="hidden" 
+  name="access_key" 
+  value="a70470a6-b892-4f29-b70c-dbe2ac4ffba1"
+>
+
+<input 
+  type="hidden" 
+  name="subject" 
+  value="New Winnie & Sam Wedding RSVP"
+>
+
+<input 
+  type="hidden" 
+  name="from_name" 
+  value="Winnie & Sam Wedding Website"
+>
+
+<!-- Spam protection -->
+<input 
+  type="checkbox" 
+  name="botcheck" 
+  style="display: none;"
+>
         <div class="field">
           <label for="fullName">Full Name</label>
           <input type="text" id="fullName" name="Full Name" required>
@@ -1566,7 +1595,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
       <div class="rsvp-success" id="rsvpSuccess">
         <div class="wreath"><svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg></div>
-        <p>Thank you for celebrating with Winnie &amp; Sam. We can't wait to share our special day with you! ❤️</p>
+        <p>Thank you for celebrating with Winnie &amp; Sam. We can't wait to share our special day with you! </p>
       </div>
 
       <div class="gift-note reveal">
@@ -1785,36 +1814,78 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
 
   /* ---------- RSVP form ---------- */
-  var rsvpForm = document.getElementById('rsvpForm');
-  var rsvpSuccess = document.getElementById('rsvpSuccess');
 
-  rsvpForm.addEventListener('submit', function(e){
-    e.preventDefault();
-    var formData = new FormData(rsvpForm);
-    var submitBtn = rsvpForm.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
+var rsvpForm = document.getElementById('rsvpForm');
+var rsvpSuccess = document.getElementById('rsvpSuccess');
 
-    fetch(rsvpForm.action, {
-      method: 'POST',
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    }).then(function(response){
-      if (response.ok) {
-        rsvpForm.classList.add('hide');
-        rsvpSuccess.classList.add('show');
-      } else {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'RSVP Now';
-        alert('Something went wrong sending your RSVP. Please try again, or contact the couple directly.');
-      }
-    }).catch(function(){
+rsvpForm.addEventListener('submit', function(e) {
+
+  e.preventDefault();
+
+  var submitBtn = rsvpForm.querySelector('button[type="submit"]');
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending…';
+
+  var formData = new FormData(rsvpForm);
+  var object = Object.fromEntries(formData);
+  var json = JSON.stringify(object);
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+
+    body: json
+
+  })
+
+  .then(async function(response) {
+
+    var data = await response.json();
+
+    if (response.ok && data.success) {
+
+      // Hide RSVP form
+      rsvpForm.classList.add('hide');
+
+      // Show thank-you message
+      rsvpSuccess.classList.add('show');
+
+      // Reset form
+      rsvpForm.reset();
+
+    } else {
+
       submitBtn.disabled = false;
       submitBtn.textContent = 'RSVP Now';
-      alert('Something went wrong sending your RSVP. Please check your connection and try again.');
-    });
+
+      alert(
+        data.message ||
+        'Something went wrong. Please try again.'
+      );
+
+    }
+
+  })
+
+  .catch(function(error) {
+
+    console.error('RSVP error:', error);
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'RSVP Now';
+
+    alert(
+      'Something went wrong. Please check your internet connection and try again.'
+    );
+
   });
 
+});
   /* ---------- Background music toggle ---------- */
   var musicToggle = document.getElementById('musicToggle');
   var musicLabel = document.getElementById('musicLabel');
