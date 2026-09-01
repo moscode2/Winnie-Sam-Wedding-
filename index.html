@@ -228,12 +228,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display:flex; align-items:center; justify-content:center;
   background:radial-gradient(ellipse at 50% 38%, #2b3020, #12150c 72%);
   overflow:hidden;
-  /* iOS Safari can fail to clip 3D-transformed descendants (the
-     envelope uses perspective + rotateX) to this box's bounds, which
-     widens the whole page's scrollable area and shows up as the page
-     rocking side to side. Paint containment plus forcing this layer
-     onto its own compositor layer makes Safari clip correctly —
-     Android/Chrome already clipped fine without it. */
   contain: layout paint;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
@@ -241,9 +235,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .opening.is-closed{ opacity:0; visibility:hidden; pointer-events:none; }
 
-/* The handoff. The envelope's panels fade first, so only the card is
-   left; the scene then drifts gently toward the viewer and dissolves,
-   with the page already waiting behind it. Nothing snaps. */
 .opening.handoff{
   opacity:0;
   pointer-events:none;
@@ -347,10 +338,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   overflow:hidden;
   clip-path:polygon(0 0, 50% 9%, 100% 0, 100% 100%, 0 100%);
 }
-
-/* Fold shadows. Each is a solid shape clipped to the fold, then
-   blurred — clip-path runs before filter, so the blur bleeds past
-   the edge and only that soft fringe is visible beyond the paper. */
 .flap-shadow{
   position:absolute; z-index:6;
   left:0; top:0; width:100%; height:47%;
@@ -1105,6 +1092,148 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-align:center; padding:1.6rem; font-size:0.68rem; letter-spacing:0.1em;
   color:var(--ink-soft); background:var(--ivory);
 }
+/* =========================================================
+   LUXURY BOTANICAL PAGE DECORATIONS
+   ========================================================= */
+
+/* Make major sections ready for decorations */
+.story,
+.details,
+.gallery,
+.rsvp,
+.closing,
+.countdown-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Elegant double invitation border */
+.story::before,
+.details::before,
+.gallery::before,
+.rsvp::before,
+.closing::before,
+.countdown-section::before {
+  content: "";
+  position: absolute;
+  inset: 22px;
+
+  border: 1px solid rgba(124, 139, 104, 0.18);
+  outline: 1px solid rgba(198, 161, 91, 0.10);
+  outline-offset: 7px;
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Keep actual section content above the decoration */
+.story .container,
+.details .container,
+.gallery .container,
+.rsvp .container,
+.closing .container,
+.countdown-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* ---------------------------------------------------------
+   TOP LEFT FLORAL CORNER
+   --------------------------------------------------------- */
+
+.story::after,
+.gallery::after,
+.countdown-section::after {
+  content: "❦";
+  position: absolute;
+
+  top: 20px;
+  left: 28px;
+
+  font-family: serif;
+  font-size: clamp(5rem, 10vw, 9rem);
+
+  color: rgba(124, 139, 104, 0.10);
+
+  transform: rotate(-20deg);
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+/* ---------------------------------------------------------
+   BOTTOM RIGHT FLORAL CORNER
+   --------------------------------------------------------- */
+
+.details::after,
+.rsvp::after,
+.closing::after {
+  content: "❦";
+  position: absolute;
+
+  right: 25px;
+  bottom: 15px;
+
+  font-family: serif;
+  font-size: clamp(6rem, 12vw, 11rem);
+
+  color: rgba(124, 139, 104, 0.10);
+
+  transform: rotate(160deg);
+
+  pointer-events: none;
+  z-index: 1;
+}
+/* =========================================================
+   BOTANICAL SVG CORNERS
+   ========================================================= */
+
+   .botanical {
+  position: absolute;
+
+  width: clamp(150px, 22vw, 260px);
+
+  opacity: 0.16;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+.botanical svg {
+  width: 100%;
+  height: auto;
+
+  fill: none;
+
+  stroke: var(--sage-deep);
+
+  stroke-width: 2;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* Top left */
+
+.botanical-top-left {
+  top: -25px;
+  left: -25px;
+}
+
+
+/* Bottom right */
+
+.botanical-bottom-right {
+  right: -25px;
+  bottom: -25px;
+
+  transform: rotate(180deg);
+}
 </style>
 </head>
 <body class="no-scroll">
@@ -1117,6 +1246,39 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <div class="opening" id="opening">
+  <section class="details" id="day">
+
+    <div class="botanical botanical-top-left">
+      <svg viewBox="0 0 220 220">
+        <path d="M20 210 C50 150, 65 80, 160 15"/>
+        <path d="M65 160 C35 145, 28 120, 55 105"/>
+        <path d="M90 120 C62 105, 65 78, 100 82"/>
+        <path d="M125 75 C110 48, 135 32, 155 55"/>
+        <path d="M50 185 C25 180, 15 155, 45 145"/>
+        <circle cx="160" cy="15" r="5"/>
+      </svg>
+    </div>
+  
+  
+    <div class="botanical botanical-bottom-right">
+      <svg viewBox="0 0 220 220">
+        <path d="M20 210 C50 150, 65 80, 160 15"/>
+        <path d="M65 160 C35 145, 28 120, 55 105"/>
+        <path d="M90 120 C62 105, 65 78, 100 82"/>
+        <path d="M125 75 C110 48, 135 32, 155 55"/>
+        <path d="M50 185 C25 180, 15 155, 45 145"/>
+        <circle cx="160" cy="15" r="5"/>
+      </svg>
+    </div>
+  
+  
+    <div class="container">
+  
+      <!-- Your existing Big Day content -->
+  
+    </div>
+  
+  </section>
 
   <!-- Shared embossed-botanical pattern definitions -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
