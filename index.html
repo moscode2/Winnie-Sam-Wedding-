@@ -1186,11 +1186,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   pointer-events: none;
   z-index: 1;
 }
-/* =========================================================
+*/* =========================================================
    BOTANICAL SVG CORNERS
    ========================================================= */
 
-   .botanical {
+.botanical {
   position: absolute;
 
   width: clamp(150px, 22vw, 260px);
@@ -1234,6 +1234,57 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   transform: rotate(180deg);
 }
+.rsvp-form {
+  position: relative;
+
+  padding: clamp(2rem, 5vw, 4rem);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.7),
+      rgba(251,247,238,0.9)
+    );
+
+  border: 1px solid rgba(124,139,104,0.25);
+
+  box-shadow:
+    0 20px 60px rgba(46,43,34,0.08);
+
+  overflow: hidden;
+}
+
+
+/* RSVP card decorative corners */
+
+.rsvp-form::before,
+.rsvp-form::after {
+  content: "❦";
+
+  position: absolute;
+
+  font-family: serif;
+
+  font-size: 7rem;
+
+  color: rgba(124,139,104,0.10);
+
+  pointer-events: none;
+}
+
+.rsvp-form::before {
+  top: -25px;
+  left: -20px;
+
+  transform: rotate(-25deg);
+}
+
+.rsvp-form::after {
+  right: -20px;
+  bottom: -25px;
+
+  transform: rotate(155deg);
+}
 </style>
 </head>
 <body class="no-scroll">
@@ -1270,12 +1321,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <circle cx="160" cy="15" r="5"/>
       </svg>
     </div>
-  
-  
     <div class="container">
-  
-      <!-- Your existing Big Day content -->
-  
     </div>
   
   </section>
@@ -1958,10 +2004,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   var opened = false;
   var finished = false;
   var timers = [];
-
-  // Browsers remember scroll position across reloads by default. Since the
-  // envelope always plays again on load, the guest should always land back
-  // at the very top once it opens — not wherever they'd scrolled to before.
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
@@ -1970,10 +2012,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   function revealHero(){
     document.querySelectorAll('.hero .reveal').forEach(function(el){ el.classList.add('is-visible'); });
   }
-
-  // Graceful exit: the page is already fading up behind the card, the
-  // hero settles while the envelope is still dissolving, and only then
-  // is the overlay taken out of the document.
   function handoff(){
     if (finished) { return; }
     finished = true;
@@ -1986,9 +2024,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
     setTimeout(revealHero, 260);
     setTimeout(function(){ opening.classList.add('is-closed'); }, 950);
-    // Once fully faded out, take it out of layout entirely — some mobile
-    // browsers leave a fixed, invisible element contributing phantom
-    // scrollable space at the bottom of the page otherwise.
     setTimeout(function(){ opening.style.display = 'none'; }, 950 + 1100);
   }
 
@@ -2244,11 +2279,6 @@ rsvpForm.addEventListener('submit', function(e) {
       }
     });
   }
-
-  // Create the player as soon as the IFrame API script finishes loading —
-  // not on click — so by the time someone taps the button, play() can be
-  // called directly inside that same tap instead of a later, ungestured
-  // callback (which mobile browsers often block, forcing a second tap).
   window.onYouTubeIframeAPIReady = createPlayer;
 
   musicToggle.addEventListener('click', function(){
