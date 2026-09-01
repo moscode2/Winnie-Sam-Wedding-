@@ -648,6 +648,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size:0.66rem; letter-spacing:0.18em; text-transform:uppercase;
   color:var(--gold-soft);
 }
+.countdown-rings{
+  width:64px; margin:2.2rem auto 0;
+  color:var(--gold-soft);
+}
+.countdown-rings svg{ width:100%; height:auto; overflow:visible; }
+.countdown-tagline{
+  margin-top:1rem; text-align:center;
+  font-family:var(--font-display); font-style:italic;
+  font-size:clamp(1.05rem,3vw,1.25rem);
+  color:var(--ivory);
+}
 
 /* =========================================================
    FORMAL INVITATION
@@ -791,6 +802,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .detail-card{
   background:var(--white);
   border:1px solid var(--sage-pale);
+  outline:1px solid var(--gold-soft);
+  outline-offset:5px;
   padding:2rem 1.6rem;
   text-align:center;
 }
@@ -856,6 +869,81 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display: inline-block;
 }
 
+.venue-pin{
+  width:38px; height:38px;
+  margin:0 auto 0.9rem;
+  color:var(--gold);
+}
+.venue-pin svg{ width:100%; height:100%; }
+
+/* =========================================================
+   PROGRAMME — order of the day
+   ========================================================= */
+.programme{ background:var(--ivory); }
+.programme-list{
+  max-width:460px; margin:3rem auto 0;
+  display:grid; gap:1.1rem;
+}
+.programme-item{
+  display:flex; align-items:center; gap:1rem;
+  padding:1rem 1.3rem;
+  background:var(--white);
+  border:1px solid var(--sage-pale);
+  outline:1px solid var(--gold-soft);
+  outline-offset:4px;
+}
+.programme-icon{ width:30px; height:30px; flex-shrink:0; color:var(--sage-deep); }
+.programme-icon svg{ width:100%; height:100%; }
+.programme-time{
+  font-family:var(--font-display); font-style:italic;
+  font-size:1.05rem; color:var(--sage-deep);
+  min-width:84px; flex-shrink:0;
+}
+.programme-label{ font-size:0.92rem; color:var(--ink); text-align:left; }
+
+/* =========================================================
+   SAVE THE DATE — calendar
+   ========================================================= */
+.save-date{ background:var(--ivory-deep); }
+.calendar-card{
+  max-width:320px; margin:3rem auto 0;
+  background:var(--white);
+  border:1px solid var(--gold-soft);
+  outline:1px solid var(--sage-pale);
+  outline-offset:6px;
+  padding:2rem 1.4rem 1.8rem;
+  text-align:center;
+}
+.calendar-month{
+  font-family:var(--font-display); font-style:italic;
+  font-size:1.3rem; color:var(--sage-deep);
+  margin-bottom:1.1rem;
+}
+.calendar-grid{
+  display:grid; grid-template-columns:repeat(7,1fr);
+  gap:0.3rem 0.1rem;
+}
+.calendar-dow{
+  font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:500; padding-bottom:0.5rem;
+}
+.calendar-grid span:not(.calendar-dow){
+  font-size:0.84rem; color:var(--ink); padding:0.3rem 0;
+}
+.calendar-day-highlight{
+  position:relative;
+  color:var(--white) !important;
+  font-weight:600;
+}
+.calendar-day-highlight::before{
+  content:""; position:absolute; inset:2px;
+  background:var(--gold); border-radius:50%; z-index:-1;
+}
+.calendar-names{
+  margin-top:1.3rem;
+  font-family:var(--font-display); font-style:italic;
+  font-size:1.1rem; color:var(--gold);
+}
 /* =========================================================
    GALLERY
    ========================================================= */
@@ -990,8 +1078,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .rsvp-contacts{
   margin-top:1.8rem;
   text-align:center;
+  display:flex; flex-direction:column; gap:0.5rem;
   font-size:0.82rem; letter-spacing:0.03em; color:var(--ink-soft);
 }
+.rsvp-contact{ white-space:nowrap; }
 .rsvp-contacts a{ color:var(--sage-deep); text-decoration:underline; text-underline-offset:2px; }
 
 /* =========================================================
@@ -1286,10 +1376,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </p>
 
     <div class="pin-row reveal reveal-delay-2">
-      <a class="pin-chip" href="https://www.google.com/maps/search/?api=1&query=CITAM+Woodley+Nairobi" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
-        Get Directions
-      </a>
       <a class="pin-chip" href="#rsvp">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v14H8l-4 4z"/></svg>
         RSVP
@@ -1330,6 +1416,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="count-label">Seconds</div>
         </div>
       </div>
+      <div class="countdown-rings reveal reveal-delay-2" aria-hidden="true">
+        <svg viewBox="0 0 64 40"><circle cx="24" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="40" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+      </div>
+      <p class="countdown-tagline reveal reveal-delay-2">We can't wait to celebrate with you!</p>
     </div>
   </section>
 
@@ -1381,7 +1471,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </div>
     </div>
   </section>
-
   <section class="story" id="story">
     <div class="container">
       <span class="eyebrow reveal" style="display:block;text-align:center;">A Love Story</span>
@@ -1395,7 +1484,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="assets/DSC_0957.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/DSC_0830.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>The Journey</h3>
           <p> From first dates to shared dreams.</p>
         </div>
@@ -1407,7 +1496,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="assets/DSC_0915.jpg" alt="Winnie and Sam, close together" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/forever.jpg" alt="Winnie and Sam, close together" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>Forever Begins</h3>
           <p>And now, surrounded by family and friends, Winnie and Sam are ready to begin the next beautiful chapter of their story — together, always.</p>
         </div>
@@ -1430,28 +1519,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <div class="detail-card reveal">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
           <h3>Time</h3>
-          <p>9:00am till late</p>
+          <p>10:00am till late</p>
         </div>
         <div class="detail-card reveal">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg></div>
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2v4M9.5 4h5"/><path d="M12 6l8 6.5V21H4v-8.5L12 6Z"/><path d="M9 21v-6h6v6"/></svg></div>
           <h3>Church</h3>
           <p>CITAM Woodley, Nairobi</p>
         </div>
         <div class="detail-card reveal">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 3v8M6 3h6"/><path d="M18 3c-2 2-2 5-1 7l1 2v9M18 3c2 2 2 5 1 7l-1 2"/></svg></div>
           <h3>Reception</h3>
           <p>Marist International University College</p>
         </div>
         <div class="detail-card reveal">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 4h9l3 3v13H6z"/><path d="M9 4v6l3-2 3 2V4"/></svg></div>
           <h3>Dress Code</h3>
-          <p style="font-size:1.05rem;">Sage Green &amp; Champagne Gold — luxury minimalist</p>
+          <p style="font-size:1.05rem;">Smart Casual</p>
         </div>
-      </div>
-
-      <div class="details-cta reveal" style="display:flex; flex-wrap:wrap; gap:0.9rem; justify-content:center;">
-        <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=CITAM+Woodley+Nairobi" target="_blank" rel="noopener noreferrer">View Church On Map →</a>
-        <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Marist+International+University+College+Nairobi" target="_blank" rel="noopener noreferrer">View Reception On Map →</a>
       </div>
     </div>
   </section>
@@ -1460,7 +1544,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <div class="container">
       <div class="ceremony-wrap">
         <div class="ceremony-text reveal">
+          <div class="wreath" style="width:80px; margin-bottom:1rem;">
+            <svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg>
+          </div>
           <span class="eyebrow">The Church Wedding</span>
+          <div class="venue-pin" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+          </div>
           <h2>CITAM Woodley</h2>
           <p class="place">Nairobi, Kenya · 10:00am – 1:00pm</p>
           <p>
@@ -1484,7 +1574,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <div class="container">
       <div class="ceremony-wrap">
         <div class="ceremony-text reveal">
+          <div class="wreath" style="width:80px; margin-bottom:1rem;">
+            <svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg>
+          </div>
           <span class="eyebrow">The Reception</span>
+          <div class="venue-pin" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+          </div>
           <h2>Marist International University College</h2>
           <p class="place">Karen, Nairobi · 2:00pm – 6:00pm</p>
           <p>
@@ -1500,6 +1596,63 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             Get Directions
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="programme" id="programme">
+    <div class="container">
+      <div class="wreath reveal">
+        <svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg>
+      </div>
+      <span class="eyebrow reveal" style="display:block;text-align:center;">Order Of The Day</span>
+      <h2 class="section-title reveal">The <em>Programme</em></h2>
+
+      <div class="programme-list">
+        <div class="programme-item reveal">
+          <div class="programme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2v4M9.5 4h5"/><path d="M12 6l8 6.5V21H4v-8.5L12 6Z"/><path d="M9 21v-6h6v6"/></svg></div>
+          <div class="programme-time">10:00 AM</div>
+          <div class="programme-label">Church Ceremony</div>
+        </div>
+        <div class="programme-item reveal reveal-delay-1">
+          <div class="programme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.6-2.5h4.8L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg></div>
+          <div class="programme-time">12:00 PM</div>
+          <div class="programme-label">Photo Session</div>
+        </div>
+        <div class="programme-item reveal reveal-delay-2">
+          <div class="programme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 3v8M6 3h6"/><path d="M18 3c-2 2-2 5-1 7l1 2v9M18 3c2 2 2 5 1 7l-1 2"/></svg></div>
+          <div class="programme-time">1:00 PM</div>
+          <div class="programme-label">Cocktail Hour</div>
+        </div>
+        <div class="programme-item reveal reveal-delay-3">
+          <div class="programme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 4h9l3 3v13H6z"/><path d="M9 4v6l3-2 3 2V4"/></svg></div>
+          <div class="programme-time">2:00 PM</div>
+          <div class="programme-label">Reception &amp; Dinner — till late</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="save-date" id="save-date">
+    <div class="container">
+      <div class="wreath reveal">
+        <svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg>
+      </div>
+      <span class="eyebrow reveal" style="display:block;text-align:center;">Save The Date</span>
+      <h2 class="section-title reveal">Mark Your <em>Calendar</em></h2>
+
+      <div class="calendar-card reveal">
+        <div class="calendar-month">October 2026</div>
+        <div class="calendar-grid">
+          <span class="calendar-dow">S</span><span class="calendar-dow">M</span><span class="calendar-dow">T</span><span class="calendar-dow">W</span><span class="calendar-dow">T</span><span class="calendar-dow">F</span><span class="calendar-dow">S</span>
+          <span></span><span></span><span></span><span></span>
+          <span>1</span><span>2</span><span class="calendar-day-highlight">3</span>
+          <span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+          <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span>
+          <span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
+          <span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span>
+        </div>
+        <div class="calendar-names">Winnie &amp; Sam</div>
       </div>
     </div>
   </section>
@@ -1595,7 +1748,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
       <div class="rsvp-success" id="rsvpSuccess">
         <div class="wreath"><svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg></div>
-        <p>Thank you for celebrating with Winnie &amp; Sam. We can't wait to share our special day with you! </p>
+        <p>Thank you for celebrating with Winnie &amp; Sam. We can't wait to share our special day with you! ❤️</p>
       </div>
 
       <div class="gift-note reveal">
@@ -1603,9 +1756,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </div>
 
       <p class="rsvp-contacts reveal">
-        Winnie Opuch <a href="tel:+254729275042">+254 (0) 729 275 042</a>
-        &nbsp;&nbsp;•&nbsp;&nbsp;
-        Sam Odongo <a href="tel:+254729856967">+254 (0) 729 856 967</a>
+        <span class="rsvp-contact">Winnie Opuch · <a href="tel:+254729275042">+254 (0) 729 275 042</a></span>
+        <span class="rsvp-contact">Sam Odongo · <a href="tel:+254729856967">+254 (0) 729 856 967</a></span>
       </p>
     </div>
   </section>
@@ -1672,6 +1824,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
     setTimeout(revealHero, 260);
     setTimeout(function(){ opening.classList.add('is-closed'); }, 950);
+    // Once fully faded out, take it out of layout entirely — some mobile
+    // browsers leave a fixed, invisible element contributing phantom
+    // scrollable space at the bottom of the page otherwise.
+    setTimeout(function(){ opening.style.display = 'none'; }, 950 + 1100);
   }
 
   // Immediate exit, used for skip-taps and reduced motion.
@@ -1684,6 +1840,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     body.classList.remove('no-scroll');
     site.classList.add('is-visible');
     revealHero();
+    setTimeout(function(){ opening.style.display = 'none'; }, 1100);
   }
 
   function openInvitation(){
@@ -1886,6 +2043,7 @@ rsvpForm.addEventListener('submit', function(e) {
   });
 
 });
+
   /* ---------- Background music toggle ---------- */
   var musicToggle = document.getElementById('musicToggle');
   var musicLabel = document.getElementById('musicLabel');
