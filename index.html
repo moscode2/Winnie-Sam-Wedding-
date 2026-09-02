@@ -755,9 +755,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .timeline-item:nth-child(even)::before{ left:-2.6rem; }
 }
 .timeline-photo{
-  width:100%; max-width:260px;
+  width:100%; max-width:950px;
   aspect-ratio:4/3;
-  margin-bottom:1rem;
+  margin-bottom:3.6rem;
   border:1px solid var(--gold-soft);
   padding:6px; background:var(--white);
 }
@@ -930,6 +930,61 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin-top:1.3rem;
   font-family:var(--font-display); font-style:italic;
   font-size:1.1rem; color:var(--gold);
+}
+/* Wedding date — red heart only */
+.calendar-day-highlight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 42px;
+}
+
+/* Red love heart */
+.calendar-day-highlight .heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 48px;
+  line-height: 1;
+
+  color: #ff0000 !important;
+
+  /* No background, no border, no glow */
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+
+  z-index: 1;
+
+  /* Gentle heartbeat */
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+
+/* Wedding date number */
+.calendar-day-highlight .date-number {
+  position: relative;
+  z-index: 2;
+
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Heartbeat */
+@keyframes heartbeat {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
 }
 /* =========================================================
    GALLERY
@@ -1674,7 +1729,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           </div>
           <div class="verse-who">Winnie &amp; Sam Say</div>
           <div class="verse-ref">1 Corinthians 13:8</div>
-          <p class="verse-text">"Love never fails," Your presence is the greatest gift of all.</p>
+          <p class="verse-text">"Love never fails"</p>
         </div>
       </div>
     </div>
@@ -1686,13 +1741,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
       <div class="timeline">
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="assets/DSC_0832.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/journey.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>Where It Began</h3>
           <p> Every love story starts somewhere unexpected.</p>
         </div>
 
         <div class="timeline-item reveal">
-          <div class="timeline-photo"><img src="assets/DSC_0830.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/sampro.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
           <h3>The Journey</h3>
           <p> From first dates to shared dreams.</p>
         </div>
@@ -1742,7 +1797,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <div class="detail-card reveal">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 4h9l3 3v13H6z"/><path d="M9 4v6l3-2 3 2V4"/></svg></div>
           <h3>Dress Code</h3>
-          <p style="font-size:1.05rem;">Smart Casual</p>
+          <p style="font-size:1.05rem;">Elegant & Classy</p>
         </div>
       </div>
     </div>
@@ -1817,54 +1872,161 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <h2 class="section-title reveal">The <em>Programme</em></h2>
 
       <div class="programme-list">
+
         <div class="programme-item reveal">
-          <div class="programme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2v4M9.5 4h5"/><path d="M12 6l8 6.5V21H4v-8.5L12 6Z"/><path d="M9 21v-6h6v6"/></svg></div>
+          <div class="programme-icon">
+            <!-- Church -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M12 2v4M9.5 4h5"/>
+              <path d="M12 6l8 6.5V21H4v-8.5L12 6Z"/>
+              <path d="M9 21v-6h6v6"/>
+            </svg>
+          </div>
           <div class="programme-time">10:00 AM</div>
           <div class="programme-label">Church Ceremony</div>
         </div>
+      
         <div class="programme-item reveal reveal-delay-1">
-          <div class="programme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.6-2.5h4.8L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg></div>
+          <div class="programme-icon">
+            <!-- Camera -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+              <rect x="3" y="7" width="18" height="13" rx="2"/>
+              <path d="M8 7l1.6-2.5h4.8L16 7"/>
+              <circle cx="12" cy="13.5" r="3.2"/>
+            </svg>
+          </div>
           <div class="programme-time">12:00 PM</div>
           <div class="programme-label">Photo Session</div>
         </div>
+      
         <div class="programme-item reveal reveal-delay-2">
-          <div class="programme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 3v8M6 3h6"/><path d="M18 3c-2 2-2 5-1 7l1 2v9M18 3c2 2 2 5 1 7l-1 2"/></svg></div>
+          <div class="programme-icon">
+            <!-- Cocktail glasses -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M4 4h7l-3.5 6v7"/>
+              <path d="M4 4l3.5 6L11 4"/>
+              <path d="M5.5 17h4"/>
+              <path d="M13 4h7l-3.5 6v7"/>
+              <path d="M13 4l3.5 6L20 4"/>
+              <path d="M14.5 17h4"/>
+              <path d="M4 4h16"/>
+            </svg>
+          </div>
           <div class="programme-time">1:00 PM</div>
           <div class="programme-label">Cocktail Hour</div>
         </div>
+      
         <div class="programme-item reveal reveal-delay-3">
-          <div class="programme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 4h9l3 3v13H6z"/><path d="M9 4v6l3-2 3 2V4"/></svg></div>
+          <div class="programme-icon">
+            <!-- Plate and fork -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+              <!-- Plate -->
+              <circle cx="14" cy="13" r="7"/>
+              <circle cx="14" cy="13" r="5"/>
+      
+              <!-- Fork -->
+              <path d="M4 3v7"/>
+              <path d="M2.5 3v4.5a1.5 1.5 0 0 0 3 0V3"/>
+              <path d="M4 9v12"/>
+            </svg>
+          </div>
           <div class="programme-time">2:00 PM</div>
-          <div class="programme-label">Reception &amp; Dinner — till late</div>
+          <div class="programme-label">Reception — till late afterparty</div>
         </div>
+      
       </div>
-    </div>
-  </section>
 
   <section class="save-date" id="save-date">
     <div class="container">
+  
       <div class="wreath reveal">
-        <svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg>
+        <svg viewBox="0 0 200 90">
+          <path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" />
+        </svg>
       </div>
-      <span class="eyebrow reveal" style="display:block;text-align:center;">Save The Date</span>
-      <h2 class="section-title reveal">Mark Your <em>Calendar</em></h2>
-
+  
+      <span class="eyebrow reveal" style="display:block;text-align:center;">
+        Save The Date
+      </span>
+  
+      <h2 class="section-title reveal">
+        Mark Your <em>Calendar</em>
+      </h2>
+  
       <div class="calendar-card reveal">
-        <div class="calendar-month">October 2026</div>
-        <div class="calendar-grid">
-          <span class="calendar-dow">S</span><span class="calendar-dow">M</span><span class="calendar-dow">T</span><span class="calendar-dow">W</span><span class="calendar-dow">T</span><span class="calendar-dow">F</span><span class="calendar-dow">S</span>
-          <span></span><span></span><span></span><span></span>
-          <span>1</span><span>2</span><span class="calendar-day-highlight">3</span>
-          <span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
-          <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span>
-          <span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
-          <span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span>
+  
+        <div class="calendar-month">
+          October 2026
         </div>
-        <div class="calendar-names">Winnie &amp; Sam</div>
+  
+        <div class="calendar-grid">
+  
+          <!-- Days of week -->
+          <span class="calendar-dow">S</span>
+          <span class="calendar-dow">M</span>
+          <span class="calendar-dow">T</span>
+          <span class="calendar-dow">W</span>
+          <span class="calendar-dow">T</span>
+          <span class="calendar-dow">F</span>
+          <span class="calendar-dow">S</span>
+  
+          <!-- Empty days before October 1 -->
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+  
+          <span>1</span>
+          <span>2</span>
+  
+          <!-- Wedding Day Heart -->
+          <span class="calendar-day-highlight">
+            <span class="heart">♥</span>
+            <span class="date-number"></span>
+          </span>
+  
+          <span>4</span>
+          <span>5</span>
+          <span>6</span>
+          <span>7</span>
+          <span>8</span>
+          <span>9</span>
+          <span>10</span>
+  
+          <span>11</span>
+          <span>12</span>
+          <span>13</span>
+          <span>14</span>
+          <span>15</span>
+          <span>16</span>
+          <span>17</span>
+  
+          <span>18</span>
+          <span>19</span>
+          <span>20</span>
+          <span>21</span>
+          <span>22</span>
+          <span>23</span>
+          <span>24</span>
+  
+          <span>25</span>
+          <span>26</span>
+          <span>27</span>
+          <span>28</span>
+          <span>29</span>
+          <span>30</span>
+          <span>31</span>
+  
+        </div>
+  
+        <div class="calendar-names">
+          Winnie &amp; Sam
+        </div>
+  
       </div>
+  
     </div>
   </section>
-
   <section class="gallery" id="gallery">
     <div class="container">
       <div class="wreath reveal">
@@ -1960,7 +2122,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </div>
 
       <div class="gift-note reveal">
-        However, if you wish to honour us with a gift, kindly consider an enveloped one (cash, cheques, or vouchers).
+         Your presence is the greatest gift,However, if you wish to honour us with a gift, kindly consider an enveloped one (cash, cheques, or vouchers).
       </div>
 
       <p class="rsvp-contacts reveal">
@@ -2130,14 +2292,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   /* ---------- Gallery ---------- */
   var galleryPhotos = [
-    { src: "assets/DSC_0800.jpg", alt: "Winnie and Sam" },
-    { src: "assets/DSC_0865.jpg", alt: "Sam, portrait" },
+    { src: "assets/DSC_0764__1_.jpg", alt: "Winnie and Sam" },
+    { src: "assets/DSC_0752.jpg", alt: "Sam, portrait" },
     { src: "assets/DSC_1024.jpg", alt: "Winnie and Sam, walking hand in hand" },
-    { src: "assets/DSC_1090.jpg", alt: "Winnie and Sam" },
+    { src: "assets/DSC_0800.jpg", alt: "Winnie and Sam" },
     { src: "assets/DSC_1140.jpg", alt: "Winnie and Sam, casual" },
     { src: "assets/DSC_1144.jpg", alt: "Winnie and Sam, casual" },
     { src: "assets/DSC_1160.jpg", alt: "Winnie and Sam, football jerseys" },
-    { src: "assets/DSC_1171.jpg", alt: "Winnie and Sam, football jerseys" }
+    { src: "assets/DSC_1171.jpg", alt: "Winnie and Sam, football jerseys" },
+    { src: "assets/DSC_1000.jpg", alt: "Winnie and Sam, casual" },
+    { src: "assets/DSC_0814.jpg", alt: "Winnie and Sam, casual" }
+   
   ];
   var galleryGrid = document.getElementById('galleryGrid');
   galleryPhotos.forEach(function(photo){
