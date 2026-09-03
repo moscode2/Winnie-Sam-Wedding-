@@ -296,8 +296,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center; padding:2rem 1.4rem; color:var(--ink);
 }
-/* Slide + settle + push-in, delayed so it waits for the flap —
-   the same transition-delay sequencing the CodePen uses. */
 .opening.opened .env-card{
   animation:card-rise 2.3s 1.5s both;
 }
@@ -351,7 +349,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .opening.opened .flap-shadow{ opacity:0; transition:opacity .8s ease .35s; }
 
-/* Shadow cast under the pocket's V notch by the side folds behind it */
 .pocket-shadow{
   position:absolute; z-index:2;
   left:-2%; top:0; width:104%; height:26%;
@@ -361,7 +358,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   pointer-events:none;
 }
 
-/* ---- The flap: a 3D hinge with two real faces ---- */
 .env-flap{
   position:absolute; z-index:7;
   left:0; top:0; width:100%; height:47%;
@@ -380,7 +376,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   100% { transform:rotateX(-178deg); z-index:2; }
 }
 
-/* Faces carry the clipping and shading so the hinge itself stays 3D */
 .flap-face{
   position:absolute; inset:0;
   overflow:hidden;
@@ -399,13 +394,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   content:""; position:absolute; inset:0;
   background:linear-gradient(180deg, rgba(0,0,0,.28), transparent 42%);
 }
-/* Soft crease shading along the fold, brightest when closed */
 .flap-face.front::after{
   content:""; position:absolute; inset:0; pointer-events:none;
   background:linear-gradient(180deg, rgba(255,255,220,.20), transparent 46%, rgba(78,86,32,.20));
 }
 
-/* ---- Wax seal (transform on the button, filter on a static child) ---- */
 .env-seal{
   position:absolute; z-index:9;
   left:50%; top:44%;
@@ -431,7 +424,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .seal-mono{ font-family:Georgia,"Times New Roman",serif; fill:none; stroke:var(--wax-dark); stroke-width:2.4; paint-order:stroke; }
 .seal-mono-hi{ font-family:Georgia,"Times New Roman",serif; fill:none; stroke:rgba(255,112,112,.6); stroke-width:.9; }
 
-/* ---- Script line on the pocket ---- */
 .invite-text{
   position:absolute; z-index:6;
   top:66%; left:0; width:100%;
@@ -462,8 +454,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .opening.opened .env-hint{ opacity:0; }
 
-/* Grain sits on the static back only — no blend mode, so nothing
-   recomposites while the flap and card are moving. */
 .env-grain{
   position:absolute; inset:0; z-index:2;
   pointer-events:none; opacity:.1;
@@ -475,7 +465,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ========================================================= */
 .site{ opacity:0; transition:opacity 1.3s var(--ease); }
 .site.is-visible{ opacity:1; }
-/* Hero settles a touch slower than the rest of the page. */
 .hero .reveal{ transition-duration:1.25s; }
 .hero .reveal-delay-1{ transition-delay:.18s; }
 .hero .reveal-delay-2{ transition-delay:.34s; }
@@ -755,9 +744,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .timeline-item:nth-child(even)::before{ left:-2.6rem; }
 }
 .timeline-photo{
-  width:100%; max-width:950px;
+  width:100%; max-width:520px;
   aspect-ratio:4/3;
-  margin-bottom:3.6rem;
+  margin-bottom:1rem;
   border:1px solid var(--gold-soft);
   padding:6px; background:var(--white);
 }
@@ -921,70 +910,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   position:relative;
   color:var(--white) !important;
   font-weight:600;
+  display:flex; align-items:center; justify-content:center;
 }
 .calendar-day-highlight::before{
-  content:""; position:absolute; inset:2px;
-  background:var(--gold); border-radius:50%; z-index:-1;
+  content:"";
+  position:absolute; inset:-4px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%237C8B68' d='M12 21s-7-4.35-9.5-8.5C.5 8.5 2 5 5.5 5c2 0 3.5 1.2 4.5 2.8C11 6.2 12.5 5 14.5 5 18 5 19.5 8.5 17.5 12.5 15 16.65 12 21 12 21Z'/%3E%3C/svg%3E");
+  background-size:contain; background-repeat:no-repeat; background-position:center;
+  z-index:-1;
 }
 .calendar-names{
   margin-top:1.3rem;
   font-family:var(--font-display); font-style:italic;
   font-size:1.1rem; color:var(--gold);
-}
-/* Wedding date — red heart only */
-.calendar-day-highlight {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  min-height: 42px;
-}
-
-/* Red love heart */
-.calendar-day-highlight .heart {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  font-size: 48px;
-  line-height: 1;
-
-  color: #ff0000 !important;
-
-  /* No background, no border, no glow */
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-
-  z-index: 1;
-
-  /* Gentle heartbeat */
-  animation: heartbeat 1.8s ease-in-out infinite;
-}
-
-/* Wedding date number */
-.calendar-day-highlight .date-number {
-  position: relative;
-  z-index: 2;
-
-  color: white;
-  font-size: 15px;
-  font-weight: 700;
-}
-
-/* Heartbeat */
-@keyframes heartbeat {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  50% {
-    transform: translate(-50%, -50%) scale(1.08);
-  }
 }
 /* =========================================================
    GALLERY
@@ -1014,7 +952,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow:0 14px 30px -18px rgba(18,21,10,0.5);
   cursor:pointer;
 }
-.gallery-grid .gallery-item:nth-child(3n+1){ aspect-ratio:4/5; }
 .gallery-item .ph{
   width:100%; height:100%;
   display:flex; align-items:center; justify-content:center; text-align:center;
@@ -1117,10 +1054,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border:1px solid var(--gold-soft);
   background:var(--white);
 }
+.gift-note .gift-options{
+  display:block; margin-top:0.6rem;
+  font-weight:600; font-style:normal;
+  letter-spacing:0.04em; color:var(--ink);
+}
 .rsvp-contacts{
   margin-top:1.8rem;
   text-align:center;
-  display:flex; flex-direction:column; gap:0.5rem;
+  display:flex; flex-direction:column; align-items:center; gap:0.5rem;
   font-size:0.82rem; letter-spacing:0.03em; color:var(--ink-soft);
 }
 .rsvp-contact{ white-space:nowrap; }
@@ -1147,199 +1089,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-align:center; padding:1.6rem; font-size:0.68rem; letter-spacing:0.1em;
   color:var(--ink-soft); background:var(--ivory);
 }
-/* =========================================================
-   LUXURY BOTANICAL PAGE DECORATIONS
-   ========================================================= */
-
-/* Make major sections ready for decorations */
-.story,
-.details,
-.gallery,
-.rsvp,
-.closing,
-.countdown-section {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Elegant double invitation border */
-.story::before,
-.details::before,
-.gallery::before,
-.rsvp::before,
-.closing::before,
-.countdown-section::before {
-  content: "";
-  position: absolute;
-  inset: 22px;
-
-  border: 1px solid rgba(124, 139, 104, 0.18);
-  outline: 1px solid rgba(198, 161, 91, 0.10);
-  outline-offset: 7px;
-
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Keep actual section content above the decoration */
-.story .container,
-.details .container,
-.gallery .container,
-.rsvp .container,
-.closing .container,
-.countdown-section .container {
-  position: relative;
-  z-index: 2;
-}
-
-
-/* ---------------------------------------------------------
-   TOP LEFT FLORAL CORNER
-   --------------------------------------------------------- */
-
-.story::after,
-.gallery::after,
-.countdown-section::after {
-  content: "❦";
-  position: absolute;
-
-  top: 20px;
-  left: 28px;
-
-  font-family: serif;
-  font-size: clamp(5rem, 10vw, 9rem);
-
-  color: rgba(124, 139, 104, 0.10);
-
-  transform: rotate(-20deg);
-
-  pointer-events: none;
-  z-index: 1;
-}
-
-
-/* ---------------------------------------------------------
-   BOTTOM RIGHT FLORAL CORNER
-   --------------------------------------------------------- */
-
-.details::after,
-.rsvp::after,
-.closing::after {
-  content: "❦";
-  position: absolute;
-
-  right: 25px;
-  bottom: 15px;
-
-  font-family: serif;
-  font-size: clamp(6rem, 12vw, 11rem);
-
-  color: rgba(124, 139, 104, 0.10);
-
-  transform: rotate(160deg);
-
-  pointer-events: none;
-  z-index: 1;
-}
-*/* =========================================================
-   BOTANICAL SVG CORNERS
-   ========================================================= */
-
-.botanical {
-  position: absolute;
-
-  width: clamp(150px, 22vw, 260px);
-
-  opacity: 0.16;
-
-  pointer-events: none;
-
-  z-index: 1;
-}
-
-.botanical svg {
-  width: 100%;
-  height: auto;
-
-  fill: none;
-
-  stroke: var(--sage-deep);
-
-  stroke-width: 2;
-
-  stroke-linecap: round;
-
-  stroke-linejoin: round;
-}
-
-
-/* Top left */
-
-.botanical-top-left {
-  top: -25px;
-  left: -25px;
-}
-
-
-/* Bottom right */
-
-.botanical-bottom-right {
-  right: -25px;
-  bottom: -25px;
-
-  transform: rotate(180deg);
-}
-.rsvp-form {
-  position: relative;
-
-  padding: clamp(2rem, 5vw, 4rem);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,0.7),
-      rgba(251,247,238,0.9)
-    );
-
-  border: 1px solid rgba(124,139,104,0.25);
-
-  box-shadow:
-    0 20px 60px rgba(46,43,34,0.08);
-
-  overflow: hidden;
-}
-
-
-/* RSVP card decorative corners */
-
-.rsvp-form::before,
-.rsvp-form::after {
-  content: "❦";
-
-  position: absolute;
-
-  font-family: serif;
-
-  font-size: 7rem;
-
-  color: rgba(124,139,104,0.10);
-
-  pointer-events: none;
-}
-
-.rsvp-form::before {
-  top: -25px;
-  left: -20px;
-
-  transform: rotate(-25deg);
-}
-
-.rsvp-form::after {
-  right: -20px;
-  bottom: -25px;
-
-  transform: rotate(155deg);
-}
 </style>
 </head>
 <body class="no-scroll">
@@ -1352,40 +1101,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <div class="opening" id="opening">
-  <section class="details" id="day">
-
-    <div class="botanical botanical-top-left">
-      <svg viewBox="0 0 220 220">
-        <path d="M20 210 C50 150, 65 80, 160 15"/>
-        <path d="M65 160 C35 145, 28 120, 55 105"/>
-        <path d="M90 120 C62 105, 65 78, 100 82"/>
-        <path d="M125 75 C110 48, 135 32, 155 55"/>
-        <path d="M50 185 C25 180, 15 155, 45 145"/>
-        <circle cx="160" cy="15" r="5"/>
-      </svg>
-    </div>
-  
-  
-    <div class="botanical botanical-bottom-right">
-      <svg viewBox="0 0 220 220">
-        <path d="M20 210 C50 150, 65 80, 160 15"/>
-        <path d="M65 160 C35 145, 28 120, 55 105"/>
-        <path d="M90 120 C62 105, 65 78, 100 82"/>
-        <path d="M125 75 C110 48, 135 32, 155 55"/>
-        <path d="M50 185 C25 180, 15 155, 45 145"/>
-        <circle cx="160" cy="15" r="5"/>
-      </svg>
-    </div>
-    <div class="container">
-    </div>
-  
-  </section>
 
   <!-- Shared embossed-botanical pattern definitions -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
       <g id="flora" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
-        <!-- full bloom -->
         <path d="M62 30 C74 22 88 27 89 40 C90 51 80 57 70 56 C82 60 88 72 81 81
                  C74 90 61 87 55 78 C57 90 49 101 38 99 C27 96 24 84 30 75
                  C20 82 8 78 6 67 C5 56 15 49 26 51 C15 45 12 32 21 25
@@ -1397,7 +1117,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <path d="M42 62 C44 57 52 57 54 62 M42 64 C44 69 52 69 54 64"/>
         <circle cx="48" cy="62" r="3.2"/>
 
-        <!-- daisy -->
         <g transform="translate(168 44)">
           <circle r="9"/><circle r="3.5"/>
           <path d="M0 -9 L0 -24 M6.4 -6.4 L17 -17 M9 0 L24 0 M6.4 6.4 L17 17
@@ -1408,13 +1127,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
                    M-21 5 C-26 2 -26 -2 -21 -5 M-18 -12 C-22 -15 -20 -19 -14 -19"/>
         </g>
 
-        <!-- leafy sprig, top right -->
         <path d="M208 88 C222 74 236 72 240 60"/>
         <path d="M212 84 C208 76 210 70 217 68 C221 74 220 81 212 84Z"/>
         <path d="M221 78 C219 70 222 64 229 63 C232 69 229 76 221 78Z"/>
         <path d="M230 70 C229 63 232 57 238 57 C240 63 237 68 230 70Z"/>
 
-        <!-- trailing vine across the middle -->
         <path d="M2 128 C34 108 62 114 88 136 C110 154 128 152 146 136
                  C168 117 194 120 216 142 C226 152 234 154 240 152"/>
         <path d="M16 132 C26 122 36 120 47 124 M60 124 C68 116 78 116 86 121
@@ -1423,7 +1140,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <path d="M118 148 C112 157 113 165 120 167 C125 162 124 154 118 148Z"/>
         <path d="M205 148 C199 157 200 165 207 167 C212 162 211 154 205 148Z"/>
 
-        <!-- second full bloom, lower left -->
         <path d="M74 208 C86 199 101 205 101 218 C101 229 91 235 81 233
                  C93 238 99 250 92 259 C84 268 71 264 66 254 C67 267 58 277 47 275
                  C36 272 33 260 39 251 C29 258 17 254 15 243 C14 232 24 225 35 227
@@ -1435,7 +1151,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <ellipse cx="58" cy="240" rx="9" ry="8"/>
         <circle cx="58" cy="240" r="3.2"/>
 
-        <!-- five-petal blossom, right -->
         <g transform="translate(188 214)">
           <path d="M0 -18 C10 -22 18 -14 14 -5 C22 0 22 11 12 14
                    C10 24 -1 26 -7 18 C-17 21 -24 12 -20 3
@@ -1445,20 +1160,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <circle r="4"/>
         </g>
 
-        <!-- berry cluster -->
         <g transform="translate(126 76)">
           <path d="M0 0 C4 10 8 17 14 22"/>
           <circle cx="-4" cy="6" r="4"/><circle cx="6" cy="11" r="4.4"/>
           <circle cx="0" cy="18" r="3.6"/><circle cx="11" cy="21" r="3.4"/>
         </g>
 
-        <!-- fern -->
         <path d="M232 196 C220 216 214 240 214 262"/>
         <path d="M229 204 C222 200 216 201 213 206 M226 214 C219 210 213 212 210 217
                  M223 226 C216 223 211 225 208 231 M220 240 C214 238 209 241 207 247
                  M217 252 C212 251 208 254 207 259"/>
 
-        <!-- small buds scattered -->
         <path d="M150 190 C144 182 147 174 154 175 C158 181 156 188 150 190Z"/>
         <path d="M150 190 L152 200"/>
         <path d="M104 118 C99 111 102 104 108 105 C112 110 110 116 104 118Z"/>
@@ -1482,7 +1194,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <div class="env-scene" id="envScene">
 
-    <!-- Back of the envelope -->
     <div class="env-back paper">
       <svg class="env-floral" viewBox="0 0 520 1040" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <rect width="520" height="1040" fill="url(#floraLight)"/>
@@ -1493,7 +1204,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="env-grain" aria-hidden="true"></div>
     </div>
 
-    <!-- The invitation card, tucked inside -->
     <div class="env-card" id="envCard">
       <div class="c-mono">W &amp; S</div>
       <div class="c-rule"></div>
@@ -1504,7 +1214,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="c-venue">CITAM Woodley, Nairobi</div>
     </div>
 
-    <!-- Front pocket -->
     <div class="env-pocket paper">
       <svg class="env-floral" viewBox="0 0 520 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <rect width="520" height="600" fill="url(#floraLight)"/>
@@ -1518,7 +1227,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
     <div class="flap-shadow" aria-hidden="true"></div>
 
-    <!-- Hinged flap: front is the floral paper, back is the lining -->
     <div class="env-flap" id="envFlap">
       <div class="flap-face front paper">
         <svg class="env-floral" viewBox="0 0 520 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -1531,7 +1239,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="flap-face back"></div>
     </div>
 
-    <!-- Script line on the pocket -->
     <div class="invite-text">You are invited</div>
     <div class="invite-divider" aria-hidden="true">
       <svg viewBox="0 0 440 34" xmlns="http://www.w3.org/2000/svg">
@@ -1551,7 +1258,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </svg>
     </div>
 
-    <!-- Wax seal -->
     <button class="env-seal" id="openInviteBtn" aria-label="Open your invitation">
       <div class="seal-inner">
       <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
@@ -1703,7 +1409,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <section class="verses" id="verses">
     <div class="container">
-      <span class="eyebrow reveal" style="display:block;text-align:center;">In Their Words</span>
+      <span class="eyebrow reveal" style="display:block;text-align:center;"></span>
       <h2 class="section-title reveal">Words We Live <em>By</em></h2>
 
       <div class="verses-grid">
@@ -1734,6 +1440,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </div>
     </div>
   </section>
+
   <section class="story" id="story">
     <div class="container">
       <span class="eyebrow reveal" style="display:block;text-align:center;">A Love Story</span>
@@ -1743,25 +1450,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <div class="timeline-item reveal">
           <h3>Where It Began</h3>
           <p> Every love story starts somewhere unexpected.</p>
-          <div class="timeline-photo"><img src="assets/journey.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/journey.jpg" alt="Winnie and Sam, portrait" style="width:100%;height:100%;object-fit:contain;object-position:center;"></div>
         </div>
 
         <div class="timeline-item reveal">
           <h3>The Journey</h3>
           <p> From first dates to shared dreams.</p>
-          <div class="timeline-photo"><img src="assets/sampro.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/sampro.jpg" alt="Winnie and Sam walking hand in hand" style="width:100%;height:100%;object-fit:contain;object-position:center;"></div>
         </div>
 
         <div class="timeline-item reveal">
           <h3>The Proposal</h3>
           <p> A heartfelt retelling of the moment Sam asked Winnie to spend forever together.</p>
-          <div class="timeline-photo"><img src="assets/DSC_0788.jpg" alt="Sam proposing to Winnie" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/DSC_0788.jpg" alt="Sam proposing to Winnie" style="width:100%;height:100%;object-fit:contain;object-position:center;"></div>
         </div>
 
         <div class="timeline-item reveal">
           <h3>Forever Begins</h3>
           <p>And now, surrounded by family and friends, Winnie and Sam are ready to begin the next beautiful chapter of their story — together, always.</p>
-          <div class="timeline-photo"><img src="assets/forever.jpg" alt="Winnie and Sam, close together" style="width:100%;height:100%;object-fit:cover;object-position:top center;"></div>
+          <div class="timeline-photo"><img src="assets/forever.jpg" alt="Winnie and Sam, close together" style="width:100%;height:100%;object-fit:contain;object-position:center;"></div>
         </div>
       </div>
     </div>
@@ -1797,7 +1504,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <div class="detail-card reveal">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 4h9l3 3v13H6z"/><path d="M9 4v6l3-2 3 2V4"/></svg></div>
           <h3>Dress Code</h3>
-          <p style="font-size:1.05rem;">Elegant & Classy</p>
+          <p style="font-size:1.05rem;">Elegant &amp; Classy</p>
         </div>
       </div>
     </div>
@@ -1815,7 +1522,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
           </div>
           <h2>CITAM Woodley</h2>
-          <p class="place">Nairobi, Kenya · 10:00am – 1:00pm</p>
+          <p class="place">Nairobi, Kenya · 10:00am – 12:00pm</p>
           <p>
             We would be honoured to have you join us as we begin this beautiful
             new chapter together.
@@ -1875,7 +1582,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
         <div class="programme-item reveal">
           <div class="programme-icon">
-            <!-- Church -->
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
               <path d="M12 2v4M9.5 4h5"/>
               <path d="M12 6l8 6.5V21H4v-8.5L12 6Z"/>
@@ -1885,10 +1591,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="programme-time">10:00 AM</div>
           <div class="programme-label">Church Ceremony</div>
         </div>
-      
+
         <div class="programme-item reveal reveal-delay-1">
           <div class="programme-icon">
-            <!-- Camera -->
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
               <rect x="3" y="7" width="18" height="13" rx="2"/>
               <path d="M8 7l1.6-2.5h4.8L16 7"/>
@@ -1898,10 +1603,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="programme-time">12:00 PM</div>
           <div class="programme-label">Photo Session</div>
         </div>
-      
+
         <div class="programme-item reveal reveal-delay-2">
           <div class="programme-icon">
-            <!-- Cocktail glasses -->
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
               <path d="M4 4h7l-3.5 6v7"/>
               <path d="M4 4l3.5 6L11 4"/>
@@ -1915,53 +1619,50 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="programme-time">1:00 PM</div>
           <div class="programme-label">Cocktail Hour</div>
         </div>
-      
+
         <div class="programme-item reveal reveal-delay-3">
           <div class="programme-icon">
-            <!-- Plate and fork -->
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
-              <!-- Plate -->
               <circle cx="14" cy="13" r="7"/>
               <circle cx="14" cy="13" r="5"/>
-      
-              <!-- Fork -->
               <path d="M4 3v7"/>
               <path d="M2.5 3v4.5a1.5 1.5 0 0 0 3 0V3"/>
               <path d="M4 9v12"/>
             </svg>
           </div>
           <div class="programme-time">2:00 PM</div>
-          <div class="programme-label">Reception — till late afterparty</div>
+          <div class="programme-label">Reception</div>
         </div>
-      
+
       </div>
+    </div>
+  </section>
 
   <section class="save-date" id="save-date">
     <div class="container">
-  
+
       <div class="wreath reveal">
         <svg viewBox="0 0 200 90">
           <path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" />
         </svg>
       </div>
-  
+
       <span class="eyebrow reveal" style="display:block;text-align:center;">
         Save The Date
       </span>
-  
+
       <h2 class="section-title reveal">
         Mark Your <em>Calendar</em>
       </h2>
-  
+
       <div class="calendar-card reveal">
-  
+
         <div class="calendar-month">
           October 2026
         </div>
-  
+
         <div class="calendar-grid">
-  
-          <!-- Days of week -->
+
           <span class="calendar-dow">S</span>
           <span class="calendar-dow">M</span>
           <span class="calendar-dow">T</span>
@@ -1969,22 +1670,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <span class="calendar-dow">T</span>
           <span class="calendar-dow">F</span>
           <span class="calendar-dow">S</span>
-  
-          <!-- Empty days before October 1 -->
+
           <span></span>
           <span></span>
           <span></span>
           <span></span>
-  
+
           <span>1</span>
           <span>2</span>
-  
-          <!-- Wedding Day Heart -->
-          <span class="calendar-day-highlight">
-            <span class="heart">♥</span>
-            <span class="date-number"></span>
-          </span>
-  
+          <span class="calendar-day-highlight">3</span>
+
           <span>4</span>
           <span>5</span>
           <span>6</span>
@@ -1992,7 +1687,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <span>8</span>
           <span>9</span>
           <span>10</span>
-  
+
           <span>11</span>
           <span>12</span>
           <span>13</span>
@@ -2000,7 +1695,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <span>15</span>
           <span>16</span>
           <span>17</span>
-  
+
           <span>18</span>
           <span>19</span>
           <span>20</span>
@@ -2008,7 +1703,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <span>22</span>
           <span>23</span>
           <span>24</span>
-  
+
           <span>25</span>
           <span>26</span>
           <span>27</span>
@@ -2016,17 +1711,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <span>29</span>
           <span>30</span>
           <span>31</span>
-  
+
         </div>
-  
+
         <div class="calendar-names">
           Winnie &amp; Sam
         </div>
-  
+
       </div>
-  
+
     </div>
   </section>
+
   <section class="gallery" id="gallery">
     <div class="container">
       <div class="wreath reveal">
@@ -2122,7 +1818,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </div>
 
       <div class="gift-note reveal">
-         Your presence is the greatest gift,However, if you wish to honour us with a gift, kindly consider an enveloped one (cash, cheques, or vouchers).
+        Your presence is the greatest gift. However, if you wish to honour us with one, kindly consider an enveloped gift.
+        <span class="gift-options">Cash, Cheques or Vouchers</span>
       </div>
 
       <p class="rsvp-contacts reveal">
@@ -2137,7 +1834,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="wreath reveal">
         <svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg>
       </div>
-      <h2 class="reveal">Two hearts. One journey.<br>One beautiful beginning.</h2>
+      <h2 class="reveal">Two hearts.<br>One journey.<br>One beginning. </h2>
       <p class="names reveal reveal-delay-1">Winnie &amp; Sam</p>
       <p class="date reveal reveal-delay-1">03 · 10 · 2026</p>
       <p class="thanks reveal reveal-delay-2">Thank you for being part of our story.</p>
@@ -2203,19 +1900,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   }
 
   function openInvitation(){
-    if (opened) { finish(); return; }   // a second tap skips ahead
+    if (opened) { finish(); return; }
     opened = true;
 
     if (reduceMotion){ finish(); return; }
 
-    // One class drives the whole sequence; the flap and card carry
-    // their own delays in CSS, so nothing can drift out of step.
     openBtn.classList.add('seal-open');
     opening.classList.add('opened');
 
-    // The overlay closes when the card actually finishes moving.
     envCard.addEventListener('animationend', handoff, { once: true });
-    timers.push(setTimeout(handoff, 2900));   // safety net
+    timers.push(setTimeout(handoff, 2900));
   }
 
   timers.push(setTimeout(openInvitation, reduceMotion ? 0 : 900));
@@ -2302,7 +1996,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     { src: "assets/DSC_1171.jpg", alt: "Winnie and Sam, football jerseys" },
     { src: "assets/DSC_1000.jpg", alt: "Winnie and Sam, casual" },
     { src: "assets/DSC_0814.jpg", alt: "Winnie and Sam, casual" }
-   
   ];
   var galleryGrid = document.getElementById('galleryGrid');
   galleryPhotos.forEach(function(photo){
@@ -2368,13 +2061,8 @@ rsvpForm.addEventListener('submit', function(e) {
 
     if (response.ok && data.success) {
 
-      // Hide RSVP form
       rsvpForm.classList.add('hide');
-
-      // Show thank-you message
       rsvpSuccess.classList.add('show');
-
-      // Reset form
       rsvpForm.reset();
 
     } else {
