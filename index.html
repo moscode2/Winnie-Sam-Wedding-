@@ -666,17 +666,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ========================================================= */
 .verses{ background:var(--ivory-deep); }
 .verses-grid{
-  display:grid; gap:2.6rem;
+  display:grid; gap:1.1rem;
   grid-template-columns:1fr;
-  max-width:920px; margin:3.2rem auto 0;
+  max-width:920px; margin:3rem auto 0;
 }
 @media(min-width:860px){
-  .verses-grid{ grid-template-columns:1fr 0.85fr 1fr; align-items:start; gap:1.6rem; }
+  .verses-grid{ grid-template-columns:1fr 0.85fr 1fr; align-items:start; gap:1.1rem; }
 }
 .verse-card{ text-align:center; }
 .verse-photo{
   width:min(300px, 78vw); aspect-ratio:4/5;
-  margin:1.5rem auto 0;
+  margin:1.1rem auto 0;
   border:1px solid var(--gold-soft);
   padding:8px; background:var(--white);
 }
@@ -908,24 +908,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .calendar-day-highlight{
   position:relative;
-  width:2rem;
-  height:2rem;
-  padding:0 !important;
+  width:2.2rem;
+  height:2.2rem;
+  padding:0 0 0.08rem !important;
   margin:auto;
   display:flex;
   align-items:center;
   justify-content:center;
   color:var(--white) !important;
   font-weight:600;
+  font-size:0.9rem !important;
   line-height:1;
+  text-align:center;
   z-index:1;
 }
 
 .calendar-day-highlight::before{
   content:"";
   position:absolute;
-  width:2rem;
-  height:2rem;
+  width:2.4rem;
+  height:2.4rem;
   left:50%;
   top:50%;
   transform:translate(-50%, -50%);
@@ -1078,9 +1080,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .rsvp-contacts{
   margin-top:1.8rem;
   text-align:center;
-  display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+  display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
+  gap:0.45rem 2.2rem;
   font-size:0.82rem; letter-spacing:0.03em; color:var(--ink-soft);
 }
+.rsvp-contact{ display:inline-flex; align-items:center; gap:0.35rem; }
 .rsvp-contact{ white-space:nowrap; }
 .rsvp-contacts a{ color:var(--sage-deep); text-decoration:underline; text-underline-offset:2px; }
 
@@ -1858,7 +1862,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <footer class="site-footer">
     Made with love for Winnie &amp; Sam · 2026<br>
-    Site design by <a href="https://justmee.netlify.app" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;">Moses</a>
+    Developed by <a href="https://justmee.netlify.app" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;">Moses</a>
   </footer>
 
 </div>
