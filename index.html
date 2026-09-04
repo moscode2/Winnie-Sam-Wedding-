@@ -683,7 +683,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 @media(min-width:860px){
   .verse-photo{ width:100%; max-width:220px; }
 }
-.verse-photo img{ width:100%; height:100%; object-fit:cover; object-position:top center; }
+.verse-photo img{ width:100%; height:100%; object-fit:contain; object-position: center; display:block;}
 .verse-who{
   font-family:var(--font-display); font-style:italic;
   font-size:1.35rem; color:var(--sage-deep); margin-bottom:0.35rem;
@@ -1079,12 +1079,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .rsvp-contacts{
   margin-top:1.8rem;
-  text-align:center;
-  display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
+  text-align:left;
+  display:flex; flex-wrap:wrap; justify-content:left; align-items:left;
   gap:0.45rem 2.2rem;
   font-size:0.82rem; letter-spacing:0.03em; color:var(--ink-soft);
 }
-.rsvp-contact{ display:inline-flex; align-items:center; gap:0.35rem; }
+.rsvp-contact{ display:inline-flex; align-items:left; gap:0.35rem; }
 .rsvp-contact{ white-space:nowrap; }
 .rsvp-contacts a{ color:var(--sage-deep); text-decoration:underline; text-underline-offset:2px; }
 
@@ -1386,7 +1386,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="wreath reveal">
         <svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg>
       </div>
-      <h2 class="section-title reveal">Counting down to <em>our forever</em></h2>
+      <h2 class="section-title reveal">Counting down to our forever</em></h2>
       <div class="countdown-grid reveal reveal-delay-1">
         <div class="count-box">
           <div class="count-num" id="cd-days">00</div>
@@ -1429,7 +1429,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <section class="verses" id="verses">
     <div class="container">
-      <h2 class="section-title reveal">Words We Live <em>By</em></h2>
+      <h2 class="section-title reveal">Words We Live By</em></h2>
       <div class="verses-grid">
         <div class="verse-card reveal">
           <div class="verse-who">Winnie Says</div>
@@ -1594,7 +1594,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <svg viewBox="0 0 200 90"><path d="M20 70 C40 20, 80 10, 100 10 C120 10, 160 20, 180 70" /></svg>
       </div>
       <span class="eyebrow reveal" style="display:block;text-align:center;">Order Of The Day</span>
-      <h2 class="section-title reveal">The <em>Programme</em></h2>
+      <h2 class="section-title reveal">The Programme</em></h2>
 
       <div class="programme-list">
 
@@ -1670,7 +1670,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </span>
 
       <h2 class="section-title reveal">
-        Mark Your <em>Calendar</em>
+        Mark Your Calendar</em>
       </h2>
 
       <div class="calendar-card reveal">
