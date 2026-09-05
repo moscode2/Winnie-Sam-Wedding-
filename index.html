@@ -21,7 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -675,7 +675,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .verse-card{ text-align:center; }
 .verse-photo{
-  width:min(300px, 78vw); aspect-ratio:4/5;
+  width:min(300px, 78vw); aspect-ratio:3/5;
   margin:1.1rem auto 0;
   border:1px solid var(--gold-soft);
   padding:8px; background:var(--white);
@@ -683,7 +683,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 @media(min-width:860px){
   .verse-photo{ width:100%; max-width:220px; }
 }
-.verse-photo img{ width:100%; height:100%; object-fit:contain; object-position: center; display:block;}
+.verse-photo img{ width:100%; height:100%; object-fit:contain; object-position:center; }
 .verse-who{
   font-family:var(--font-display); font-style:italic;
   font-size:1.35rem; color:var(--sage-deep); margin-bottom:0.35rem;
@@ -697,8 +697,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size:1.15rem; line-height:1.5; color:var(--ink);
   max-width:26ch; margin-inline:auto;
 }
-.verse-card.shared{ padding-top:0.2rem; }
-@media(min-width:860px){ .verse-card.shared{ padding-top:0.5rem; } }
+.verse-card.shared{ padding-top:0.6rem; }
+@media(min-width:860px){ .verse-card.shared{ padding-top:2.2rem; } }
 .verse-card.shared .verse-who{ color:var(--gold); }
 .verse-card.shared .verse-icon{
   width:34px; height:34px; margin:0 auto 1rem; color:var(--gold);
@@ -712,7 +712,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .timeline{
   position:relative;
   max-width:760px; margin-inline:auto;
-  margin-top:0.8rem;
+  margin-top:3.6rem;
 }
 .timeline::before{
   content:"";
@@ -880,7 +880,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* =========================================================
    SAVE THE DATE — calendar
    ========================================================= */
-   .save-date{ background:var(--ivory-deep); }
+.save-date{ background:var(--ivory-deep); }
 .calendar-card{
   max-width:320px; margin:3rem auto 0;
   background:var(--white);
@@ -908,33 +908,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .calendar-day-highlight{
   position:relative;
-  width:2.2rem;
-  height:2.2rem;
-  padding:0 0 0.08rem !important;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
   color:var(--white) !important;
   font-weight:600;
-  font-size:0.9rem !important;
-  line-height:1;
-  text-align:center;
-  z-index:1;
+  display:flex; align-items:center; justify-content:center;
 }
-
 .calendar-day-highlight::before{
   content:"";
-  position:absolute;
-  width:2.4rem;
-  height:2.4rem;
-  left:50%;
-  top:50%;
-  transform:translate(-50%, -50%);
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%237C8B68' d='M12 21.35l-1.45-1.45C5.4 15.2 2 12.1 2 8.25 2 5.15 4.15 3 7 3c1.7 0 3.35.8 4.35 2.05h.3C12.65 3.8 14.3 3 16 3c2.85 0 5 2.15 5 5.25 0 3.85-3.4 6.95-8.55 11.55L12 21.35Z'/%3E%3C/svg%3E");
-  background-size:contain;
-  background-repeat:no-repeat;
-  background-position:center;
+  position:absolute; inset:-4px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E63946' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+  background-size:contain; background-repeat:no-repeat; background-position:center;
   z-index:-1;
 }
 .calendar-names{
@@ -1084,13 +1066,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   grid-template-columns:auto auto;
   column-gap:0.7rem;
   row-gap:0.5rem;
-  text-align:center;
+  text-align:left;
   font-size:0.82rem; letter-spacing:0.03em; color:var(--ink-soft);
 }
 .rsvp-contact-name{ white-space:nowrap; }
 .rsvp-contact-number{ white-space:nowrap; }
 .rsvp-contacts a{ color:var(--sage-deep); text-decoration:underline; text-underline-offset:2px; }
- 
+
 /* =========================================================
    CLOSING
    ========================================================= */
@@ -1432,14 +1414,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <section class="verses" id="verses">
     <div class="container">
+      <span class="eyebrow reveal" style="display:block;text-align:center;"></span>
       <h2 class="section-title reveal">Words We Live By</em></h2>
+
       <div class="verses-grid">
         <div class="verse-card reveal">
           <div class="verse-who">Winnie Says</div>
           <div class="verse-ref">Psalms 45:2</div>
           <p class="verse-text">"You are the most excellent of men"</p>
           <div class="verse-photo">
-            <img src="assets/winnie-portrait.jpg" alt="Winnie in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+            <img src="assets/winnie-portrait.jpg" alt="Winnie in traditional attire" style="width:100%;height:100%;object-fit:contain;object-position:center;">
           </div>
         </div>
         <div class="verse-card reveal reveal-delay-2">
@@ -1447,7 +1431,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="verse-ref">Proverbs 31:29</div>
           <p class="verse-text">"Many women do noble things but you surpass them all"</p>
           <div class="verse-photo">
-            <img src="assets/sam-portrait.jpg" alt="Sam in traditional attire" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+            <img src="assets/sam-portrait.jpg" alt="Sam in traditional attire" style="width:100%;height:100%;object-fit:contain;object-position:center;">
           </div>
         </div>
         <div class="verse-card shared reveal reveal-delay-1">
@@ -1839,13 +1823,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </div>
 
       <div class="gift-note reveal">
-        Your presence is the greatest gift of all.<br>However, if you wish to honour us with a gift,kindly consider an enveloped one.
+        Your presence is the greatest gift. However, if you wish to honour us with one, kindly consider an enveloped gift.
         <span class="gift-options">Cash, Cheques or Vouchers</span>
       </div>
 
       <p class="rsvp-contacts reveal">
-        <span class="rsvp-contact">Winnie Opuch · <a href="tel:+254729275042">+254 (0) 729 275 042</a></span>
-        <span class="rsvp-contact">Sam Odongo · <a href="tel:+254729856967">+254 (0) 729 856 967</a></span>
+        <span class="rsvp-contact-name">Winnie Opuch ·</span>
+        <a class="rsvp-contact-number" href="tel:+254729275042">+254 (0) 729 275 042</a>
+        <span class="rsvp-contact-name">Sam Odongo ·</span>
+        <a class="rsvp-contact-number" href="tel:+254729856967">+254 (0) 729 856 967</a>
       </p>
     </div>
   </section>
