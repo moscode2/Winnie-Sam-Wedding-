@@ -1078,16 +1078,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   letter-spacing:0.04em; color:var(--ink);
 }
 .rsvp-contacts{
-  margin-top:1.8rem;
+  margin:1.8rem auto 0;
+  width:fit-content;
+  display:grid;
+  grid-template-columns:auto auto;
+  column-gap:0.7rem;
+  row-gap:0.5rem;
   text-align:left;
-  display:flex; flex-wrap:wrap; justify-content:left; align-items:left;
-  gap:0.45rem 2.2rem;
   font-size:0.82rem; letter-spacing:0.03em; color:var(--ink-soft);
 }
-.rsvp-contact{ display:inline-flex; align-items:left; gap:0.35rem; }
-.rsvp-contact{ white-space:nowrap; }
+.rsvp-contact-name{ white-space:nowrap; }
+.rsvp-contact-number{ white-space:nowrap; }
 .rsvp-contacts a{ color:var(--sage-deep); text-decoration:underline; text-underline-offset:2px; }
-
+ 
 /* =========================================================
    CLOSING
    ========================================================= */
